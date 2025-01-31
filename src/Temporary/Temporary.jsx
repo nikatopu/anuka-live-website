@@ -2,7 +2,7 @@ import "./temporary.css";
 function Temporary() {
     return (
         <div className="App-Temporary">
-            <a href="https://www.linkedin.com/in/akipsidze/" target="_blank" rel="noopener">
+            <a href="https://www.linkedin.com/in/akipsidze/" target="_blank" rel="noopener noreferrer">
                 <img src="/ანუკა.jpg" alt="Anuka" className="round-image"/>
             </a>
             <h1>Stalking <span>Anuka</span>, are we?</h1>
