@@ -2,6 +2,7 @@ import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Music from './pages/music/Music';
+import SoundDesign from './pages/sound design/SoundDesign';
 import News from './pages/news/News';
 import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
@@ -13,6 +14,7 @@ function App() {
       <Link to={"/"}><img src='./AnukaLogo.svg' alt='The logo of Anuka'></img></Link>
       <ul>
         <Link to={"/music"}>Music</Link>
+        <Link to={"/sound-design"}>Sound Design</Link>
         <Link to={"/news"}>News</Link>
         <Link to={"/about-me"}>About me</Link>
         <Link to={"/contact"}>Contact</Link>
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/music' element={<Music/>}/>
+        <Route path='/sound-design' element={<SoundDesign/>}/>
         <Route path='/news' element={<News/>}/>
         <Route path='/about-me' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
