@@ -10,8 +10,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg);
   color: var(--color-text);
+  overflow-x: hidden;
 }
 
+@media screen and (max-width: 800px) {
+  body {
+    margin: 0 1.5rem;
+  }
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
