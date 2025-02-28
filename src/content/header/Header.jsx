@@ -16,8 +16,7 @@ function Header({image}) {
         <div className='header_desc'>
             <h1>ANUKA KIPSHIDZE</h1>
             <p>
-                I am a dedicated web designer and developer, deeply committed to the principles of minimalist design. 
-                With more than 5 years of hands-on experience in the industry.
+                Musician, Producer, Sound designer and multi-instrumentalist from Tbilisi, Georgia.
             </p>
             <div className='header_desc_links'>
                 <a className='header_desc_links_link' rel="noreferrer" target='_blank' href='https://open.spotify.com/artist/1OLjpisqHVt8FvCdjRj9Zc?si=5LGUJUDlSK6d0tiac9aLtw&nd=1&dlsi=91c40b2410164dc8'>

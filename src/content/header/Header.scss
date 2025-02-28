@@ -7,8 +7,8 @@
     height: calc(100svh - 116px);
 
     picture img {
-        width: 400px;
-        height: 400px;
+        width: 800px;
+        height: auto;
         border-radius: 5%;
     }
 
@@ -23,14 +23,14 @@
             cursor: default;
             text-align: center;
             font-size: 96px;
-            margin: 0;
+            margin: 0; 
         }
 
         p {
             cursor: default;
             text-align: center;
-            width: 60%;
-            font-size: 14px;
+            width: 80%;
+            font-size: 18px;
             font-weight: 300;
             line-height: 20px;
             letter-spacing: 1%;
@@ -61,8 +61,7 @@
         height: calc(100svh - 80px);
 
         picture img {
-            width: 300px;
-            height: 300px;
+            width: 500px;
         }
 
         &_desc {
@@ -84,11 +83,6 @@
 @media screen and (max-width: 800px) {
     .header {
         height: calc(100svh - 80px);
-
-        picture img {
-            width: 300px;
-            height: 300px;
-        }
 
         &_desc {
             translate: 0 -80px;

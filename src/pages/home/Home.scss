@@ -1,0 +1,59 @@
+.gradient {
+    border-radius: 50%;
+    pointer-events: none;
+
+    &_one {
+        background: radial-gradient(circle, #3a72ff40, #3a72ff05, #00000000);
+        width: 2000px;
+        height: 2000px;
+
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(54%, -30%);
+    }
+
+    &_two {
+        background: radial-gradient(circle, #ff933a40, #FF933a05, #00000000);
+        width: 3000px;
+        height: 3000px;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translate(-60%, -25%);
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .gradient {
+        &_one {
+            width: 2000px;
+            height: 2000px;
+            transform: translate(55%, -30%);
+        }
+
+        &_two {
+            width: 3000px;
+            height: 3000px;
+            transform: translate(-55%, -15%);
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .gradient {
+        &_one {
+            width: 1000px;
+            height: 1000px;
+            transform: translate(64%, -30%);
+        }
+
+        &_two {
+            width: 1500px;
+            height: 1500px;
+            transform: translate(-60%, -10%);
+        }
+    }
+    
+}

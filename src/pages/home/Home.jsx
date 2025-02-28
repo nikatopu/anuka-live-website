@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../../content/header/Header'
+import './Home.scss'
 
 const mainImage = {
   big: "/img/home/Anuka_Home.jpeg",
@@ -10,6 +11,8 @@ const mainImage = {
 function Home() {
   return (
     <div className='home'>
+      <div className='gradient gradient_one'></div>
+      <div className='gradient gradient_two'></div>
       <Header image={mainImage}/>
     </div>
   )
