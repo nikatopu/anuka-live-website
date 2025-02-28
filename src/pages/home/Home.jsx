@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../../content/header/Header'
 import './Home.scss'
+import MusicSection from '../../content/music/MusicSection'
 
 const mainImage = {
   big: "/img/home/Anuka_Home.jpeg",
@@ -13,7 +14,10 @@ function Home() {
     <div className='home'>
       <div className='gradient gradient_one'></div>
       <div className='gradient gradient_two'></div>
-      <Header image={mainImage}/>
+      <div className='sections'>
+        <Header image={mainImage}/>
+        <MusicSection/>
+      </div>
     </div>
   )
 }

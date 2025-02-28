@@ -1,0 +1,36 @@
+.section-music {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &-tiles {
+        display: flex;
+        flex: 1fr 1fr 1fr;
+        justify-content: center;
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .section-music-tiles {
+        flex-direction: column;
+        align-items: center;
+    }
+}
