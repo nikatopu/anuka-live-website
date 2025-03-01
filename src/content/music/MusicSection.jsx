@@ -6,13 +6,13 @@ import TrackTile from './tiles/TrackTile'
 function MusicSection() {
     const tracks = [
         {
-            name: "MaTsaDe",
-            desc: "Artwork by Tata Zakaraia.",
+            name: "Ma Tsa De",
+            desc: "Artwork by Tata Zakaraia",
             links: {
-                spotify: "https://open.spotify.com/track/07fNSmUha1kYPSkjG5gFxZ?si=7eb0d1ef32e444f4",
+                spotify: "https://open.spotify.com/album/7wxdEPGJMilP4FSGNAULQo",
                 imusic: "https://music.apple.com/us/album/ma-tsa-de/1736263329",
-                youtube: "https://www.youtube.com/watch?v=iymUg7Jk-JU&list=PLGcaWSUn90EcCFCovHrfDjF2Ki-gHMCS9&index=3&ab_channel=AnukaKipshidze",
-                soundcloud: "https://soundcloud.com/akipshidze/matsade",
+                youtube: "https://www.youtube.com/watch?v=97aLuJ6igXw&list=OLAK5uy_laVur7s7RnXmS3HYdDtV0Z3Crvoqad13w",
+                soundcloud: "https://soundcloud.com/akipshidze/sets/ma-tsa-de?si=0e8352d8875c4ddd8378ee7c4fa4f238&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
                 bandcamp: "https://akipshidze.bandcamp.com/album/ma-tsa-de",
             },
             image: {
@@ -23,7 +23,7 @@ function MusicSection() {
         },
         {
             name: "Kreizi Frog",
-            desc: "Photo by Ketewan.",
+            desc: "Photo by Ketewan",
             links: {
                 spotify: "https://open.spotify.com/track/00XnYZA0zuRpFBIidnRwEP?si=a5f91b1513a243dc",
                 imusic: "https://music.apple.com/us/album/kreizi-frog/1772409315?i=1772409316",
@@ -39,7 +39,7 @@ function MusicSection() {
         },
         {
             name: "Mona",
-            desc: "Artwork by Nuzi.",
+            desc: "Artwork by Nuzi",
             links: {
                 spotify: "https://open.spotify.com/track/1LmMhBQk7JtFyXQuee31e2?si=5b169f4b3275449f",
                 imusic: "https://music.apple.com/us/album/mona/1788194299?i=1788194300",
