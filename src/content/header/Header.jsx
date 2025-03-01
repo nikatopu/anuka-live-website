@@ -7,7 +7,7 @@ import "./Header.scss"
  */
 function Header({image}) {
   return (
-    <div className='header'>
+    <div className='header' id='header'>
         <picture>
             <source media="(min-width:800px)" srcset={image.big} />
             <source media="(max-width:800px)" srcset={image.small} />

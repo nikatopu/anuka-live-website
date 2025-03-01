@@ -21,7 +21,7 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
     ];
 
     return (
-        <div className='tracktile'>
+        <div className='tracktile' id={nameTrack.replace(/\s+/g, '')}>
             <div className='tracktile_picture'
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
