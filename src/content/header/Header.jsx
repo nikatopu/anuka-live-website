@@ -14,7 +14,7 @@ function Header({image}) {
             <img src={image.big} alt={image.name} />
         </picture>
         <div className='header_desc'>
-            <h1>ANUKA KIPSHIDZE</h1>
+            <img src="/img/musician.png" alt='Musician' className='musician Anuka Kipshidze'/>
             <p>
                 Musician, Producer, Sound designer and multi-instrumentalist from Tbilisi, Georgia.
             </p>
