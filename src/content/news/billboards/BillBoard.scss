@@ -1,0 +1,106 @@
+.billboard {
+    position: relative;
+    width: 100%;
+
+    border: 1px solid #363636;
+    border-radius: 15px;
+    padding: 35px 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    transition: 0.25s ease-in-out;
+
+    &-tag {
+        cursor: default;
+        border-radius: 25px;
+        background-color: #FFFFFF1A;
+        padding: 10px 15px;
+        width: max-content;
+    }
+    
+    &-info {
+
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        h2 {
+            cursor: default;
+            font-weight: 500;
+            font-size: 32px;
+            line-height: 28px;
+            letter-spacing: 0%;
+            margin: 0;
+        }
+    
+        p {
+            cursor: default;
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 20px;
+            letter-spacing: 1%;
+            color: #FFFFFF99;
+            margin: 0;
+        }
+    }
+
+    a {
+        display: none;
+        opacity: 0;
+        transition: 10s ease-in-out;
+
+        color: #F86830;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: 0%;
+        
+        &.hovered {
+            display: flex;
+            opacity: 1;
+
+            flex-direction: row;
+            gap: 5px;
+            justify-content: center;
+            align-items: baseline;
+            width: max-content;
+
+            position: absolute;
+            right: 15px;
+        }
+    }
+    
+
+    &:hover {
+        background-color: #363636;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .billboard {
+        padding: 15px;
+    }
+
+    .billboard-tag {
+        font-size: 12px;
+    }
+
+    .billboard-info {
+        h2 {
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (max-width:  800px) {
+    .billboard {
+        width: 90%;
+    }
+}

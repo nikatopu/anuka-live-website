@@ -33,7 +33,7 @@ function MusicSection() {
             },
             image: {
                 big: "/img/music/tracks/KreiziFrog.jpeg",
-                small: "/img/music/tracks/KreiziFrog_small.jpeg",
+                small: "/img/music/tracks/KreiziFrog_small.jpg",
                 name: "Kreizi Frog",
             },
         },

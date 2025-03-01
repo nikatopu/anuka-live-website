@@ -29,6 +29,17 @@
         top: 0;
         transform: translate(-60%, -25%);
     }
+
+    &_three {
+        background: radial-gradient(circle, #3a72ff30, #3a72ff05, #00000000);
+        width: 1500px;
+        height: 1500px;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: translate(-54%, 55%);
+    }
 }
 
 @media screen and (min-width: 1400px) {
@@ -43,6 +54,12 @@
             width: 3000px;
             height: 3000px;
             transform: translate(-55%, -15%);
+        }
+
+        &_three {
+            width: 1500px;
+            height: 1500px;
+            transform: translate(-54%, 100%);
         }
     }
 }
