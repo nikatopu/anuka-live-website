@@ -2,7 +2,7 @@ import React from 'react'
 
 function SoundDesign() {
   return (
-    <div>SoundDesign</div>
+    <div></div>
   )
 }
 
