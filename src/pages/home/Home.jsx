@@ -13,9 +13,11 @@ const mainImage = {
 function Home() {
   return (
     <div className='home'>
-      <div className='gradient gradient_one'></div>
-      <div className='gradient gradient_two'></div>
-      <div className='gradient gradient_three'></div>
+      <div className='gradient_holder'> 
+        <div className='gradient gradient_one'></div>
+        <div className='gradient gradient_two'></div>
+        <div className='gradient gradient_three'></div>
+      </div>
       <div className='sections'>
         <Header image={mainImage}/>
         <MusicSection/>

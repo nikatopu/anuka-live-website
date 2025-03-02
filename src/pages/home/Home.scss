@@ -8,6 +8,15 @@
     border-radius: 50%;
     pointer-events: none;
 
+    &_holder {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100lvw;
+        height: 3000px;
+        overflow-x: hidden;
+    }
+
     &_one {
         background: radial-gradient(circle, #3a72ff40, #3a72ff05, #00000000);
         width: 2000px;
