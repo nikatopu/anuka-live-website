@@ -50,7 +50,7 @@ const ContactForm = () => {
     // Send the email using EmailJS
     emailjs
       .send(
-        'service_3obwf8x', // Your service ID
+        'service_mjdhyd8', // Your service ID
         'template_pbqbxhy', // Your template ID
         params,
         'FW0uzHeuIz6w0d_C7' // Your public key
