@@ -3,10 +3,13 @@ nav {
     z-index: 999;
     top: 0;
     padding: 1rem 0;
-    width: 100%;
+    width: calc(100% - 10rem);
+    padding: 0 25px;
     display: flex;
     justify-content: space-between;
     height: 70px;
+
+    padding: 15px 5rem;
 
     ul {
         display: flex;
@@ -26,15 +29,110 @@ nav {
     }
 }
 
+@media screen and (min-width: 1400px) {
+    nav {
+        width: calc(100% - 14rem);
+        padding: 15px 7rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    nav {
+        width: calc(100% - 3rem);
+        padding: 15px 1.5rem;
+    }
+}
+
+footer {
+    width: calc(100% - 200px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-top: 1px solid #2B2B2B;
+    padding: 25px 100px;
+
+    .footer-left {
+        img {
+            width: 80px;
+        }
+
+        p {
+            width: 70%;
+            margin: 3px 0;
+
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0%;
+                        
+            color: #7D7D7D;
+        }
+    }
+
+    .footer-right {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 5px;
+
+        p {
+            margin: 0;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: 0%;
+                        
+            color: #7D7D7D;
+        }
+
+        ul {
+            display: flex;
+            padding: 0;
+            margin: 0;
+            flex-direction: row;
+            gap: 8px;
+            width: 100%;
+
+            a { 
+                cursor: pointer;
+                transition: 0.1s ease-in-out;
+
+                img {
+                    border-radius: 50%;
+                    width: 24px;
+                }
+
+                &:hover {
+                    transform: scale(1.2) translateY(-3px);
+                }
+            }
+        }
+    }
+
+}
+
 @media screen and (max-width: 1400px) {
     nav {
         height: 60px;
-        padding: 1rem 0 0 0;
     }
 }
 
 @media screen and (max-width: 800px) {
     nav ul {
         display: none;
+    }
+
+    footer {
+        flex-direction: column;
+        width: calc(100% - 40px);
+        padding: 25px 20px;
+        gap: 15px;
+
+        .footer-left {
+            p {
+                width: 100%;
+            }
+        }
     }
 }
