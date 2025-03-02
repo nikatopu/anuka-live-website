@@ -3,6 +3,7 @@ import Header from '../../content/header/Header'
 import './Home.scss'
 import MusicSection from '../../content/music/MusicSection'
 import NewsSection from '../../content/news/NewsSection'
+import Events from '../../content/events/Events'
 
 const mainImage = {
   big: "/img/home/Anuka_Home.jpeg",
@@ -20,8 +21,9 @@ function Home() {
       </div>
       <div className='sections'>
         <Header image={mainImage}/>
-        <MusicSection/>
+        <MusicSection />
         <NewsSection />
+        {/* <Events /> */}
       </div>
     </div>
   )
