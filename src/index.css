@@ -5,25 +5,13 @@
 }
 
 body {
-  margin: 0 5rem;
   font-family: "Inter", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-bg);
   color: var(--color-text);
   overflow-x: hidden;
-}
-
-@media screen and (min-width: 1400px) {
-  body {
-    margin: 0 7rem;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  body {
-    margin: 0 1.5rem;
-  }
+  margin: 0;
 }
 
 code {

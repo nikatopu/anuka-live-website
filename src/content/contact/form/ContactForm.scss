@@ -1,0 +1,51 @@
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    input, textarea {
+        background-color: #111111;
+        border: 1px solid #C8666633;
+        border-radius: 5px;
+        padding: 5px 15px;
+
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0%;
+        font-family: "Inter", serif;
+
+        color: var(--color-text);
+    }
+
+    input {
+        height: 56px;
+    }
+
+    textarea {
+        padding-top: 10px;
+        height: 200px;
+        resize: none;
+    }
+
+    #submit-button {
+        background-color: #F8683033;
+        border-color: transparent;
+
+        color: #F86830;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    #contact-form  {
+        input {
+            height: 40px;
+        }
+    }
+}
