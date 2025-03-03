@@ -3,8 +3,9 @@ import Header from '../../content/header/Header'
 import './Home.scss'
 import MusicSection from '../../content/music/MusicSection'
 import NewsSection from '../../content/news/NewsSection'
-import Events from '../../content/events/Events'
+// import Events from '../../content/events/Events'
 import Contact from '../../content/contact/Contact'
+import PageGradients from '../../content/PageGradients'
 
 const mainImage = {
   big: "/img/home/Anuka_Home.jpeg",
@@ -15,11 +16,7 @@ const mainImage = {
 function Home() {
   return (
     <div className='home'>
-      <div className='gradient_holder'> 
-        <div className='gradient gradient_one'></div>
-        <div className='gradient gradient_two'></div>
-        <div className='gradient gradient_three'></div>
-      </div>
+      <PageGradients />
       <div className='sections'>
         <div className='sections-margined'>
           <Header image={mainImage}/>
