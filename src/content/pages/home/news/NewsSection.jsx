@@ -2,6 +2,7 @@ import React from 'react'
 import "./NewsSection.scss"
 import BillBoard from './billboards/BillBoard'
 import { Link } from 'react-router-dom'
+import allBlogs from '../../news/newsBlogs'
 
 function NewsSection() {
   return (
@@ -29,9 +30,9 @@ function NewsSection() {
                 </div>
             </div>
             <div className='section-news-body-right'>
-                <BillBoard title="Ali - Anuka Kipshidze Releases a New Single Track" description="Anuka Kipshidze Releases a New Single, Ali" link="/news"/>
-                <BillBoard title="Ali - Anuka Kipshidze Releases a New Single Track" description="Anuka Kipshidze Releases a New Single, Ali" link="/news"/>
-                <BillBoard title="Ali - Anuka Kipshidze Releases a New Single Track" description="Anuka Kipshidze Releases a New Single, Ali" link="/news"/>
+                {allBlogs.blogs.slice(1, 4).map(element => {
+                    return <BillBoard title={element.title} description={element.desc} link={element.redirect}/>
+                })}
                 <Link className='section-news-body-right-viewmore' to={"/news"}>
                     View More
                     <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">

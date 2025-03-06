@@ -6,7 +6,7 @@
         title: "the title",
         desc: "the description",
         redirect: "where does it redirect",
-        tags: "What tags do we have, seperated by spaces"
+        tags: "What tags do we have, seperated by commas"
     }
 */
 const blogs = [
@@ -45,11 +45,25 @@ const blogs = [
         redirect: "https://billboard.com.ge/2025/02/05/musikaluri-proeqti-bevri-kabeli-da-akhali-kolaboracia-artist-anuka-kipshidzestan/",
         tags: "Billboard",
     },
+    {
+        image: "/img/pages/news/blogs/MaTsaDeTSA.webp",
+        title: `Ma Tsa De - The Debut Album`,
+        desc: `Tamas is an unproductive type of human activity, the motivation for which lies not in its result, but in the process.`,
+        redirect: "https://www.tsamusic.ge/blog/ma-tsa-de-anuka-kipshidze",
+        tags: "Tsa Music Article",
+    },
+    {
+        image: "/img/pages/news/blogs/AnmanAndAnuka.jpg",
+        title: `Anman, Anuka Kipshidze - Vanilla`,
+        desc: `A collab of Anman and Anuka Kipshidze`,
+        redirect: "https://www.youtube.com/watch?v=MtSCWpBQT7A",
+        tags: "YouTube",
+    },
 ]
 
 const getBlogs = (count) => {
     if (count > blogs.length) return blogs;
-    return blogs.slice(0, count-1);
+    return blogs.slice(0, count);
 }
 
 const exportObject = {
