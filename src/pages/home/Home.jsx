@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../../content/header/Header'
+import Header from '../../content/pages/home/header/Header'
 import './Home.scss'
-import MusicSection from '../../content/music/MusicSection'
-import NewsSection from '../../content/news/NewsSection'
-// import Events from '../../content/events/Events'
-import Contact from '../../content/contact/Contact'
+import MusicSection from '../../content/pages/home/music/MusicSection'
+import NewsSection from '../../content/pages/home/news/NewsSection'
+// import Events from '../../content/pages/home/events/Events'
+import Contact from '../../content/pages/home/contact/Contact'
 import PageGradients from '../../content/PageGradients'
 
 const mainImage = {
