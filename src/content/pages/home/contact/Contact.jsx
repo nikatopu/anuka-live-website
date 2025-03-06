@@ -7,7 +7,7 @@ function Contact() {
 
   return (
     <div className='section-contact' id='section-contact'>
-        <img src='/img/contact/contact_decoration.png' alt='Background decoration'/>
+        <img src='/img/pages/home/contact/contact_decoration.png' alt='Background decoration'/>
         <div className='section-contact-left'>
             <h2>LET'S TALK</h2>
             <p>Looking to start a project or just need to collaborate? Feel Free to contact me. </p>

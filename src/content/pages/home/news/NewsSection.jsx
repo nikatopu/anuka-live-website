@@ -15,9 +15,9 @@ function NewsSection() {
         <div className='section-news-body'>
             <div className='section-news-body-left'>
                 <picture>
-                    <source media="(min-width:800px)" srcset="/img/news/AnukaInternational.jpg"/>
-                    <source media="(max-width:800px)" srcset="/img/news/AnukaInternational_small.jpg" />
-                    <img src="/img/news/AnukaInternational.jpg" alt="Anuka" />
+                    <source media="(min-width:800px)" srcset="/img/pages/home/news/AnukaInternational.jpg"/>
+                    <source media="(max-width:800px)" srcset="/img/pages/home/news/AnukaInternational_small.jpg" />
+                    <img src="/img/pages/home/news/AnukaInternational.jpg" alt="Anuka" />
                 </picture>
                 <div className='section-news-body-left-description'>
                     <h2>

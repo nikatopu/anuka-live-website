@@ -8,8 +8,8 @@ import Contact from '../../content/pages/home/contact/Contact'
 import PageGradients from '../../content/PageGradients'
 
 const mainImage = {
-  big: "/img/home/Anuka_Home.jpeg",
-  small: "/img/home/Anuka_Home_small.jpg",
+  big: "/img/pages/home/home/Anuka_Home.jpeg",
+  small: "/img/pages/home/home/Anuka_Home_small.jpg",
   name: "Anuka playing a sick guitar"
 }
 

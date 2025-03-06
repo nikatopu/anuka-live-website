@@ -8,7 +8,7 @@ function About() {
       <PageGradients />
       <div className='sections'>
         <div className='sections-header'>
-          <img src="/img/pages/about/aboutHeader.png" alt="Anuka Kipshidze"/>
+          <img src="/img/pages/home/about/aboutHeader.png" alt="Anuka Kipshidze"/>
           <p>A musician, producer, sound designer, and multi-instrumentalist from Tbilisi, Georgia.</p>
         </div>
         <div className='about-me'>
@@ -18,10 +18,10 @@ function About() {
               Music has been in my life since childhood, shaped by my family's deep musical roots. With a pianist mother and grandmother 
               and a multi-instrumentalist father, I found my rhythm early. At six, I started playing piano, and the stage quickly became my second home.
             </p>
-            <img src="/img/pages/about/family.png" alt="Anuka Kipshidze's family"/>
+            <img src="/img/pages/home/about/family.png" alt="Anuka Kipshidze's family"/>
           </div>
           <div className='about-me-right'>
-            <img src="/img/pages/about/AnukaAsAChild.png" alt="Anuka Kipshidze as a child"/>
+            <img src="/img/pages/home/about/AnukaAsAChild.png" alt="Anuka Kipshidze as a child"/>
           </div>
         </div>
         <div className='mid-section'>
@@ -39,7 +39,7 @@ function About() {
             </p>
           </div>
           <div className='photos'>
-            <img src="/img/pages/about/AnukaNewcommers.png" alt="Anuka Kipshidze at Newcommers"/>
+            <img src="/img/pages/home/about/AnukaNewcommers.png" alt="Anuka Kipshidze at Newcommers"/>
           </div>
         </div>
         <div className='text-and-photos'>
@@ -53,8 +53,8 @@ function About() {
             </p>
           </div>
           <div className='photos photos-many'>
-            <img src="/img/pages/about/AnukaWorking.png" alt="Anuka Kipshidze working"/>
-            <img src="/img/pages/about/AnukaLooking.png" alt="Anuka Kipshidze looking at the camera"/>
+            <img src="/img/pages/home/about/AnukaWorking.png" alt="Anuka Kipshidze working"/>
+            <img src="/img/pages/home/about/AnukaLooking.png" alt="Anuka Kipshidze looking at the camera"/>
           </div>
         </div>
         <div className='mid-section'>
