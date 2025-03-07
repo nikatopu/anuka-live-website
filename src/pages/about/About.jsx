@@ -6,8 +6,8 @@ function About() {
   return (
     <div className='about'>
       <PageGradients />
-      <div className='sections'>
-        <div className='sections-header'>
+      <div className='sections-about'>
+        <div className='sections-about-header'>
           <img src="/img/pages/home/about/aboutHeader.png" alt="Anuka Kipshidze"/>
           <p>A musician, producer, sound designer, and multi-instrumentalist from Tbilisi, Georgia.</p>
         </div>
