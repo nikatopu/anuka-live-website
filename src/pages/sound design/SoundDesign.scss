@@ -1,0 +1,21 @@
+.section-sound-design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 100px;
+
+    &-videos {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .section-sound-design {
+        padding: 0 100px;
+    }
+    
+}
