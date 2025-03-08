@@ -16,7 +16,7 @@ function NewsFormat({blog}) {
               </svg> 
           </a>
         </div>
-        <h1>{blog.title}</h1>
+        <h1>{blog.title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</h1>
         <p>{blog.desc}</p>
     </div>
   )
