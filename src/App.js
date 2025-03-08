@@ -13,11 +13,11 @@ function App() {
     <nav>
       <Link to={"/"}><img src='./AnukaLogo.svg' alt='The logo of Anuka'></img></Link>
       <ul>
-        <Link to={"/music"}>Music</Link>
-        <Link to={"/sound-design"}>Sound Design</Link>
-        <Link to={"/news"}>News</Link>
-        <Link to={"/about-me"}>About me</Link>
-        <Link to={"/contact"}>Contact</Link>
+        <Link to={"/music"} onClick={() => window.scrollTo(0, 0)}>Music</Link>
+        <Link to={"/sound-design"} onClick={() => window.scrollTo(0, 0)}>Sound Design</Link>
+        <Link to={"/news"} onClick={() => window.scrollTo(0, 0)}>News</Link>
+        <Link to={"/about-me"} onClick={() => window.scrollTo(0, 0)}>About me</Link>
+        <Link to={"/contact"} onClick={() => window.scrollTo(0, 0)}>Contact</Link>
       </ul>
     </nav>
       <Routes>
