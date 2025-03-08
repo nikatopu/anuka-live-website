@@ -22,7 +22,7 @@ function NewsSection() {
                 </picture>
                 <div className='section-news-body-left-description'>
                     <h2>
-                        Anuka takes part in an <br />international experimental music project Frog
+                        Anuka Takes Part In An <br />International Experimental Music Project Frog
                     </h2>
                     <p>
                         Anuka Kipshidze Releases a New Single, Ali.
@@ -31,7 +31,7 @@ function NewsSection() {
             </div>
             <div className='section-news-body-right'>
                 {allBlogs.blogs.slice(1, 4).map(element => {
-                    return <BillBoard title={element.title} description={element.desc} link={element.redirect}/>
+                    return <BillBoard title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} description={element.desc} link={element.redirect}/>
                 })}
                 <Link className='section-news-body-right-viewmore' to={"/news"}>
                     View More
