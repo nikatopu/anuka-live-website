@@ -32,7 +32,7 @@ const blogs = [
         tags: "Billboard",
     },
     {
-        image: "/img/pages/news/blogs/PlaceHolder.png",
+        image: "/img/pages/news/blogs/DebutAlbum.jpg",
         title: "Ma Tsa De - Anuka Kipshidze's Debut Album",
         desc: "The songs are characterized by the sound of 2000s video game theme tracks and resemble soundtracks.",
         redirect: "https://billboard.com.ge/2024/04/12/ma-tsa-de-anuka-yifsizis-sadebiuto-albomi/",
