@@ -22,9 +22,11 @@ function Music() {
         <button onClick={() => handleFilter("Collab")} className={filters.includes("Collab") ? "isActive" : ""}>Collabs</button>
       </div>
       <div className='section-musicpage-allmusic'>
-        {allMusic.filterByTags(filters).map(e => {
-          return <TrackTile nameTrack={e.title} descTrack={e.desc} linksTrack={e.links} imageTrack={e.image}/>
-        })}
+        <div className='section-musicpage-allmusic-wrapper'>
+          {allMusic.filterByTags(filters).map(e => {
+            return <TrackTile nameTrack={e.title} descTrack={e.desc} linksTrack={e.links} imageTrack={e.image}/>
+          })}
+        </div>
       </div>
     </div>
   )
