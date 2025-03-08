@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
+import allMusic from '../../content/pages/music/music'
+import TrackTile from '../../content/pages/home/music/tiles/TrackTile'
+import "./Music.scss"
 
 function Music() {
+  const [filters, setFilters] = useState([])
+
+  const handleFilter = (text) => {
+    if (filters.includes(text)) {
+      setFilters(filters.filter(e => e !== text))
+    } else {
+      setFilters([...filters, text])
+    }
+  }
+
   return (
-    <div></div>
+    <div className='section-musicpage'>
+      <div className='section-musicpage-filters'>
+        <button onClick={() => handleFilter("Album")} className={filters.includes("Album") ? "isActive" : ""}>Albums</button>
+        <button onClick={() => handleFilter("Track")} className={filters.includes("Track") ? "isActive" : ""}>Tracks</button>
+        <button onClick={() => handleFilter("Collab")} className={filters.includes("Collab") ? "isActive" : ""}>Collabs</button>
+      </div>
+      <div className='section-musicpage-allmusic'>
+        {allMusic.filterByTags(filters).map(e => {
+          return <TrackTile nameTrack={e.title} descTrack={e.desc} linksTrack={e.links} imageTrack={e.image}/>
+        })}
+      </div>
+    </div>
   )
 }
 

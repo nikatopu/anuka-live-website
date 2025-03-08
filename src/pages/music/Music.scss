@@ -1,0 +1,49 @@
+.section-musicpage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100lvw;
+    margin-bottom: 25px;
+
+    &-filters {
+        padding: 25px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        
+        button {
+            color: var(--color-text);
+            background-color: #1F1E1E;
+            border-color: transparent;
+            border-radius: 25px;
+            padding: 10px;
+            width: 100px;
+            cursor: pointer;
+
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            letter-spacing: 0%;
+
+            transition: 0.25s ease-in-out;
+
+            &.isActive {
+                background-color: #FF723B;
+                color: var(--color-bg);
+            }
+
+            &:hover {
+                transform: translateY(-2px) scale(1.05);
+            }
+        }
+    }
+
+    &-allmusic {
+        width: 85%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

@@ -16,8 +16,8 @@ function MusicSection() {
                 bandcamp: "https://akipshidze.bandcamp.com/album/ma-tsa-de",
             },
             image: {
-                big: "/img/music/tracks/MaTsaDe.png",
-                small: "/img/music/tracks/MaTsaDe.png",
+                big: "/img/pages/music/MaTsaDe.png",
+                small: "/img/pages/music//MaTsaDe.png",
                 name: "MaTsaDe",
             },
         },
@@ -32,8 +32,8 @@ function MusicSection() {
                 bandcamp: "https://akipshidze.bandcamp.com/track/kreizi-frog",
             },
             image: {
-                big: "/img/music/tracks/KreiziFrog.jpeg",
-                small: "/img/music/tracks/KreiziFrog_small.jpg",
+                big: "/img/pages/music/KreiziFrog.jpeg",
+                small: "/img/pages/music/KreiziFrog_small.jpg",
                 name: "Kreizi Frog",
             },
         },
@@ -48,8 +48,8 @@ function MusicSection() {
                 bandcamp: "https://akipshidze.bandcamp.com/track/mona",
             },
             image: {
-                big: "/img/music/tracks/Mona.png",
-                small: "/img/music/tracks/Mona_small.png",
+                big: "/img/pages/music/Mona.png",
+                small: "/img/pages/music/Mona_small.png",
                 name: "Mona",
             },
         },
