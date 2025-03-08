@@ -4,7 +4,8 @@ import './SingleVideo.scss';
 function SingleVideo({ source }) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
-  const title = source.slice(11, -4);
+  const title = source.slice(11, -5);
+  const titleArray = title.split(/\.|,/)
 
   return (
     <div
@@ -24,7 +25,13 @@ function SingleVideo({ source }) {
             <source src={source} type="video/mov" />
             Your browser does not support the video tag.
         </video>
-      <span className="video-container-subtext">{title}</span>
+        <div className='text-holder'>
+        {
+          titleArray.map(text => {
+            return <span className="video-container-subtext">{text.trim()}</span>
+          })
+        }
+        </div>
     </div>
   );
 }

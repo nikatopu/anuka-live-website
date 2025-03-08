@@ -7,7 +7,7 @@
 
     position: relative;
     width: 320px;
-    height: 560px;
+    height: max-content;
     overflow: hidden;
     cursor: pointer;
   
@@ -26,17 +26,22 @@
     &:hover .custom-controls {
       opacity: 1;
     }
+
+    .text-holder {
+      display: flex;
+      flex-direction: column;
+    }
   
     &-subtext {
         cursor: default;
         color: #ffffffCC;
         text-align: center;
+        font-size: 14px;
     }
 }
 
 @media screen and (max-width: 1400px) {
     .video-container {
-        height: 450px;
         video {
             height: 400px;
             object-fit: contain;
