@@ -7,11 +7,8 @@ function Music() {
   const [filters, setFilters] = useState([])
 
   const handleFilter = (text) => {
-    if (filters.includes(text)) {
-      setFilters(filters.filter(e => e !== text))
-    } else {
-      setFilters([...filters, text])
-    }
+    if (filters[0] !== text) setFilters([text])
+    else setFilters([])
   }
 
   return (
