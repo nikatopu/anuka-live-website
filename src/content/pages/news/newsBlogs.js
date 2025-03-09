@@ -11,7 +11,7 @@
 */
 const blogs = [
     {
-        image: "/img/pages/news/blogs/Ali.png",
+        image: "/img/pages/news/blogs/Ali.webp",
         title: "Ali - Anuka Kipshidze Releases a New Single",
         desc: "Georgian musician Anuka Kipshidze has released a new composition titled Ali.",
         redirect: "https://billboard.com.ge/2024/09/02/ali-anuka-kipsizem-axali-singli-gamousva/",
@@ -32,14 +32,14 @@ const blogs = [
         tags: "Billboard",
     },
     {
-        image: "/img/pages/news/blogs/DebutAlbum.jpg",
+        image: "/img/pages/news/blogs/DebutAlbum.webp",
         title: "Ma Tsa De - Anuka Kipshidze's Debut Album",
         desc: "The songs are characterized by the sound of 2000s video game theme tracks and resemble soundtracks.",
         redirect: "https://billboard.com.ge/2024/04/12/ma-tsa-de-anuka-yifsizis-sadebiuto-albomi/",
         tags: "Billboard",
     },
     {
-        image: "/img/pages/news/blogs/bevri-kabeli-da-anuka-kipshidze.jpg",
+        image: "/img/pages/news/blogs/bevri-kabeli-da-anuka-kipshidze.webp",
         title: `Music Project "Bevri Kabeli" and a New Collaboration`,
         desc: `The main idea of the project "Many Cables" is the convergence of the creative ideas of two Georgian musicians, where the musicians share their vision, ideas, and experiences with each other and create new musical content.`,
         redirect: "https://billboard.com.ge/2025/02/05/musikaluri-proeqti-bevri-kabeli-da-akhali-kolaboracia-artist-anuka-kipshidzestan/",
@@ -53,7 +53,7 @@ const blogs = [
         tags: "Tsa Music Article",
     },
     {
-        image: "/img/pages/news/blogs/AnmanAndAnuka.jpg",
+        image: "/img/pages/news/blogs/AnmanAndAnuka.webp",
         title: `Anman, Anuka Kipshidze - Vanilla`,
         desc: `A collab of Anman and Anuka Kipshidze`,
         redirect: "https://www.youtube.com/watch?v=MtSCWpBQT7A",
