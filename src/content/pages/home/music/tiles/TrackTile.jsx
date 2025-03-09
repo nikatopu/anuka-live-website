@@ -20,6 +20,8 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
         { key: 'bandcamp', image: '/svg/bandcamp.svg' },
     ];
 
+    const descSplit = descTrack.split(/\.|,/);
+
     return (
         <div className='tracktile' id={nameTrack.replace(/\s+/g, '')}>
             <div className='tracktile_picture'
@@ -51,7 +53,10 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
                 {nameTrack}
             </h2>
             <p>
-                {descTrack}
+                {descSplit.map(e => {
+                    return <p>{e}</p>
+                })}
+                <br/>
             </p>
         </div>
     );
