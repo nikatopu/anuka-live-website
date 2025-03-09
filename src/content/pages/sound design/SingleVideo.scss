@@ -3,17 +3,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
 
     position: relative;
-    width: 320px;
+    width: 20lvw;
     height: max-content;
     overflow: hidden;
     cursor: pointer;
   
     video {
       width: 100%;
-      height: 500px;
+      height: 30lvw;
       object-fit: cover;
 
       &:fullscreen {
@@ -40,11 +40,18 @@
     }
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 800px) {
     .video-container {
+        position: relative;
+        width: 30lvw;
+
         video {
-            height: 400px;
-            object-fit: contain;
+          width: 100%;
+          height: 50lvw;
+        }
+
+        .text-holder {
+          display: none;
         }
     }
 }
