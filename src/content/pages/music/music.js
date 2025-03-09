@@ -87,8 +87,8 @@ const music = [
         title: "Oboba",
         desc: "Photo by Anuka",
         image: {
-            big: "/img/pages/music/Oboba.jpg",
-            small: "/img/pages/music/Oboba_small.jpg",
+            big: "/img/pages/music/Oboba.JPG",
+            small: "/img/pages/music/Oboba_small.JPG",
             name: "oboba",
         },
         tags: ["Track"],
