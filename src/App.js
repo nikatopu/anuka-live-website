@@ -6,11 +6,18 @@ import SoundDesign from './pages/sound design/SoundDesign';
 import News from './pages/news/News';
 import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
+import { useState } from 'react';
 
 function App() {
+  const [hamburgerPressed, setHamburgerPressed] = useState(false);
+
+  const handlePress = () => {
+    setHamburgerPressed(!hamburgerPressed);
+  }
+
   return (
     <>
-    <nav>
+    <nav className={hamburgerPressed ? "scrolled" : ""}>
       <Link to={"/"}><img src='./AnukaLogo.svg' alt='The logo of Anuka'></img></Link>
       <ul>
         <Link to={"/music"} onClick={() => window.scrollTo(0, 0)}>Music</Link>
@@ -19,6 +26,22 @@ function App() {
         <Link to={"/about-me"} onClick={() => window.scrollTo(0, 0)}>About me</Link>
         <Link to={"/contact"} onClick={() => window.scrollTo(0, 0)}>Contact</Link>
       </ul>
+      <div className="hidden-above">
+        <div className="hamburger" onClick={() => handlePress()}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24" fill="none">
+            <path d="M5 6.5H19V8H5V6.5Z" fill="#fff"/>
+            <path d="M5 16.5H19V18H5V16.5Z" fill="#fff"/>
+            <path d="M5 11.5H19V13H5V11.5Z" fill="#fff"/>
+          </svg>
+        </div>
+        <div className="mobile-links">
+          <Link to={"/music"} onClick={() => window.scrollTo(0, 0)}>Music</Link>
+          <Link to={"/sound-design"} onClick={() => window.scrollTo(0, 0)}>Sound Design</Link>
+          <Link to={"/news"} onClick={() => window.scrollTo(0, 0)}>News</Link>
+          <Link to={"/about-me"} onClick={() => window.scrollTo(0, 0)}>About me</Link>
+          <Link to={"/contact"} onClick={() => window.scrollTo(0, 0)}>Contact</Link>
+        </div>
+      </div>
     </nav>
       <Routes>
         <Route path='/' element={<Home/>}/>
