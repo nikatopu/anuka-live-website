@@ -15,6 +15,11 @@ function App() {
     setHamburgerPressed(!hamburgerPressed);
   }
 
+  const handleLinkPress = () => {
+    window.scrollTo(0, 0);
+    setHamburgerPressed(false);
+  }
+
   return (
     <>
     <nav className={hamburgerPressed ? "scrolled" : ""}>
@@ -35,11 +40,11 @@ function App() {
           </svg>
         </div>
         <div className="mobile-links">
-          <Link to={"/music"} onClick={() => window.scrollTo(0, 0)}>Music</Link>
-          <Link to={"/sound-design"} onClick={() => window.scrollTo(0, 0)}>Sound Design</Link>
-          <Link to={"/news"} onClick={() => window.scrollTo(0, 0)}>News</Link>
-          <Link to={"/about-me"} onClick={() => window.scrollTo(0, 0)}>About me</Link>
-          <Link to={"/contact"} onClick={() => window.scrollTo(0, 0)}>Contact</Link>
+          <Link to={"/music"} onClick={() => handleLinkPress()}>Music</Link>
+          <Link to={"/sound-design"} onClick={() => handleLinkPress()}>Sound Design</Link>
+          <Link to={"/news"} onClick={() => handleLinkPress()}>News</Link>
+          <Link to={"/about-me"} onClick={() => handleLinkPress()}>About me</Link>
+          <Link to={"/contact"} onClick={() => handleLinkPress()}>Contact</Link>
         </div>
       </div>
     </nav>
