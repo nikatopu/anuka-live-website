@@ -2,6 +2,7 @@ import React from 'react'
 import AllNews from '../../content/pages/news/AllNews'
 import newsBlogs from '../../content/pages/news/newsBlogs.js'
 import './News.scss'
+import PageGradients from '../../content/PageGradients.jsx'
 
 function News() {
   return (

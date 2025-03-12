@@ -5,7 +5,6 @@ import "./About.scss"
 function About() {
   return (
     <div className='about'>
-      <PageGradients />
       <div className='sections-about'>
         <div className='sections-about-header'>
           <img src="/img/pages/home/about/aboutHeader.webp" alt="Anuka Kipshidze"/>

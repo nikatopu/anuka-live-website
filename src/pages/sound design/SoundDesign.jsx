@@ -26,7 +26,6 @@ function SoundDesign() {
 
   return (
     <div className='section-sound-design'>
-      <PageGradients />
       <div className='section-sound-design-videos'>
         {allVideos.map(element => {
           return <SingleVideo source={element}/>

@@ -7,7 +7,8 @@
         left: 0;
         top: 0;
         width: 100lvw;
-        height: 2000px;
+        height: 100%;
+        overflow-y: hidden;
         overflow-x: hidden;
         pointer-events: none;
     }
@@ -49,7 +50,7 @@
 @media screen and (min-width: 1400px) {
     .gradient {
         &_holder {
-            height: 3000px;
+            // height: 3000px;
         }
 
         &_one {

@@ -7,6 +7,7 @@ import News from './pages/news/News';
 import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
 import { useState } from 'react';
+import PageGradients from './content/PageGradients';
 
 function App() {
   const [hamburgerPressed, setHamburgerPressed] = useState(false);
@@ -21,7 +22,8 @@ function App() {
   }
 
   return (
-    <>
+    <div className="everything-holder">
+    <PageGradients />
     <nav className={hamburgerPressed ? "scrolled" : ""}>
       <Link to={"/"}><img src='./AnukaLogo.svg' alt='The logo of Anuka'></img></Link>
       <ul>
@@ -92,7 +94,7 @@ function App() {
         </ul>
       </div>
     </footer>
-    </>
+    </div>
     );
 }
 

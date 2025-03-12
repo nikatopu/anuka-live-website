@@ -16,7 +16,6 @@ const mainImage = {
 function Home() {
   return (
     <div className='home'>
-      <PageGradients />
       <div className='sections'>
         <div className='sections-margined'>
           <Header image={mainImage}/>
