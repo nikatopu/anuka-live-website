@@ -8,7 +8,7 @@ function NewsFormat({blog}) {
     <div className='newsFormat' id={blog.title} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         <img src={blog.image} alt={blog.title}></img>
         <div className='newsFormat-tag-and-link'>
-          <span className='billboard-tag'>Billboard</span>
+          <span className='billboard-tag'>{blog.tags}</span>
           <a href={blog.redirect} target='_blank' rel="noreferrer" className={isHovered ? "hovered" : ""}>
             View Details
               <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">

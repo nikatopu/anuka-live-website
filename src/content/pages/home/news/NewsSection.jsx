@@ -30,7 +30,7 @@ function NewsSection() {
             </a>
             <div className='section-news-body-right'>
                 {allBlogs.blogs.slice(1, 4).map(element => {
-                    return <BillBoard title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} description={element.desc} link={element.redirect}/>
+                    return <BillBoard title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} description={element.desc} link={element.redirect} tag={element.tags}/>
                 })}
                 <Link className='section-news-body-right-viewmore' to={"/news"} onClick={() => window.scrollTo(0, 0)}>
                     View More

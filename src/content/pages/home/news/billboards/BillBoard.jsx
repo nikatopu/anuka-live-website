@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import "./BillBoard.scss"
 import { useState } from 'react'
 
-function BillBoard({title, description, link}) {
+function BillBoard({title, description, link, tag}) {
   const [isHovered, setHovered] = useState(false)
 
   return (
@@ -11,7 +11,7 @@ function BillBoard({title, description, link}) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       >
-        <span className='billboard-tag'>Billboard</span>
+        <span className='billboard-tag'>{tag}</span>
         <div className='billboard-info'>
           <h2>{title}</h2>
           <p>{description}</p>

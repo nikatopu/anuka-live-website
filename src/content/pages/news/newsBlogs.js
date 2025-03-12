@@ -36,7 +36,7 @@ const blogs = [
         title: "Ma Tsa De - Anuka Kipshidze's Debut Album",
         desc: "The songs are characterized by the sound of 2000s video game theme tracks and resemble soundtracks.",
         redirect: "https://billboard.com.ge/2024/04/12/ma-tsa-de-anuka-yifsizis-sadebiuto-albomi/",
-        tags: "Billboard",
+        tags: "TSA Music",
     },
     {
         image: "/img/pages/news/blogs/bevri-kabeli-da-anuka-kipshidze.webp",
@@ -50,7 +50,7 @@ const blogs = [
         title: `Ma Tsa De - The Debut Album`,
         desc: `Tamas is an unproductive type of human activity, the motivation for which lies not in its result, but in the process.`,
         redirect: "https://www.tsamusic.ge/blog/ma-tsa-de-anuka-kipshidze",
-        tags: "Tsa Music Article",
+        tags: "TSA Music",
     },
     {
         image: "/img/pages/news/blogs/AnmanAndAnuka.webp",
