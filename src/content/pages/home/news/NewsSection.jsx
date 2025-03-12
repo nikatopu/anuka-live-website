@@ -14,21 +14,20 @@ function NewsSection() {
             </svg>
         </div>
         <div className='section-news-body'>
-            <div className='section-news-body-left'>
+            <a className='section-news-body-left' href={allBlogs.blogs[0].redirect} target='_blank' rel='noreferrer'>
                 <picture>
-                    <source media="(min-width:800px)" srcset="/img/pages/home/news/AnukaInternational.jpg"/>
-                    <source media="(max-width:800px)" srcset="/img/pages/home/news/AnukaInternational_small.jpg" />
-                    <img src="/img/pages/home/news/AnukaInternational.jpg" alt="Anuka" />
+                    <source srcset={allBlogs.blogs[0].image}/>
+                    <img src={allBlogs.blogs[0].image} alt={allBlogs.blogs[0].desc} />
                 </picture>
                 <div className='section-news-body-left-description'>
                     <h2>
-                        Anuka Takes Part In An <br />International Experimental Music Project Frog
+                        {allBlogs.blogs[0].title}
                     </h2>
                     <p>
-                        Anuka Kipshidze Releases a New Single, Ali.
+                        {allBlogs.blogs[0].desc}
                     </p>
                 </div>
-            </div>
+            </a>
             <div className='section-news-body-right'>
                 {allBlogs.blogs.slice(1, 4).map(element => {
                     return <BillBoard title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())} description={element.desc} link={element.redirect}/>
