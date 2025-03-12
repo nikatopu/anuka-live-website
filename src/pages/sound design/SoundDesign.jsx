@@ -1,6 +1,7 @@
 import React from 'react'
 import SingleVideo from '../../content/pages/sound design/SingleVideo'
 import './SoundDesign.scss'
+import PageGradients from '../../content/PageGradients'
 
 const allVideos = [
   "/videos/01. UI Design by Oelhan. Phone Design by Sandro Aleksidze. Sound Design by Me.webm",
@@ -25,6 +26,7 @@ function SoundDesign() {
 
   return (
     <div className='section-sound-design'>
+      <PageGradients />
       <div className='section-sound-design-videos'>
         {allVideos.map(element => {
           return <SingleVideo source={element}/>
