@@ -22,15 +22,44 @@
 
     &-tiles {
         display: flex;
-        flex: 1fr 1fr 1fr;
-        justify-content: center;
         gap: 30px;
-    }
-}
+        justify-content: center;
 
-@media screen and (max-width: 800px) {
-    .section-music-tiles {
-        flex-direction: column;
-        align-items: center;
+        @media screen and (max-width: 800px) {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+
+            .slider-arrow {
+                background: rgba(0, 0, 0, 0.5);
+                border: none;
+                border-radius: 50%;
+                color: white;
+                cursor: pointer;
+                font-size: 24px;
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 10;
+                transition: background 0.3s ease;
+
+                &:hover {
+                    background: rgba(0, 0, 0, 0.8);
+                }
+
+                &.left {
+                    left: 10px;
+                }
+
+                &.right {
+                    right: 10px;
+                }
+            }
+        }
     }
 }
