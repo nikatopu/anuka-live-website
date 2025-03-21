@@ -17,7 +17,7 @@ function SingleVideo({ source, isPlaying, onPlay }) {
 
   const handlePlay = () => {
     if (videoRef.current && !isPlaying) {
-      onPlay(videoSource);
+      onPlay(source);
     }
   };
 

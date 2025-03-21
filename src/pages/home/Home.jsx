@@ -6,6 +6,7 @@ import NewsSection from '../../content/pages/home/news/NewsSection'
 // import Events from '../../content/pages/home/events/Events'
 import Contact from '../../content/pages/home/contact/Contact'
 import PageGradients from '../../content/PageGradients'
+import SoundDesignSection from '../../content/pages/home/sound design/SoundDesignSection'
 
 const mainImage = {
   big: "/img/pages/home/home/Anuka_Home.jpeg",
@@ -21,6 +22,7 @@ function Home() {
           <Header image={mainImage}/>
           <MusicSection />
           <NewsSection />
+          <SoundDesignSection />
           {/* <Events /> */}
         </div>
         <Contact />
