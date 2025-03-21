@@ -6,6 +6,8 @@ function SingleVideo({ source, isPlaying, onPlay }) {
   const videoRef = useRef(null);
   const title = source.slice(11, -5);
   const titleArray = title.split(/\.|,/);
+  const videoSource = "/videos/" + source + ".webm";
+  const thumbnailSource = "/img/pages/sound design/" + source + ".webp";
 
   useEffect(() => {
     if (!isPlaying && videoRef.current) {
@@ -15,7 +17,7 @@ function SingleVideo({ source, isPlaying, onPlay }) {
 
   const handlePlay = () => {
     if (videoRef.current && !isPlaying) {
-      onPlay(source);
+      onPlay(videoSource);
     }
   };
 
@@ -32,10 +34,11 @@ function SingleVideo({ source, isPlaying, onPlay }) {
         height="560"
         loop
         onPlay={handlePlay}
+        poster={thumbnailSource}
       >
-        <source src={source} type="video/webm" />
-        <source src={source} type="video/mp4" />
-        <source src={source} type="video/mov" />
+        <source src={videoSource} type="video/webm" />
+        <source src={videoSource} type="video/mp4" />
+        <source src={videoSource} type="video/mov" />
         Your browser does not support the video tag.
       </video>
       <div className='text-holder'>
