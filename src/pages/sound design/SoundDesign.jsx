@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SingleVideo from '../../content/pages/sound design/SingleVideo'
 import './SoundDesign.scss'
-import PageGradients from '../../content/PageGradients'
 
 const allVideos = [
   "/videos/01. UI Design by Oelhan. Phone Design by Sandro Aleksidze. Sound Design by Me.webm",
@@ -20,19 +19,29 @@ const allVideos = [
   "/videos/13. Aniamtion by Tata Zakaraia, Music & Sound Design by Me.webm",
   "/videos/15. Protest. Animation by Nuzi. Music & Sound Design by Me.webm",
   "/videos/16. Animation by Ana Chubinidze, Music & Sound Design by Me.webm",
-]
+];
 
 function SoundDesign() {
+  const [playingVideo, setPlayingVideo] = useState(null);
+
+  const handleVideoPlay = (source) => {
+    setPlayingVideo(source);
+  };
 
   return (
     <div className='section-sound-design'>
       <div className='section-sound-design-videos'>
-        {allVideos.map(element => {
-          return <SingleVideo source={element}/>
-        })}
+        {allVideos.map((element, index) => (
+          <SingleVideo
+            key={index}
+            source={element}
+            isPlaying={playingVideo === element}
+            onPlay={handleVideoPlay}
+          />
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default SoundDesign
+export default SoundDesign;

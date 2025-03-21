@@ -1,11 +1,23 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './SingleVideo.scss';
 
-function SingleVideo({ source }) {
+function SingleVideo({ source, isPlaying, onPlay }) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
   const title = source.slice(11, -5);
-  const titleArray = title.split(/\.|,/)
+  const titleArray = title.split(/\.|,/);
+
+  useEffect(() => {
+    if (!isPlaying && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  const handlePlay = () => {
+    if (videoRef.current && !isPlaying) {
+      onPlay(source);
+    }
+  };
 
   return (
     <div
@@ -19,19 +31,18 @@ function SingleVideo({ source }) {
         width="320"
         height="560"
         loop
-        >
-            <source src={source} type="video/webm" />
-            <source src={source} type="video/mp4" />
-            <source src={source} type="video/mov" />
-            Your browser does not support the video tag.
-        </video>
-        <div className='text-holder'>
-        {
-          titleArray.map(text => {
-            return <span className="video-container-subtext">{text.trim()}</span>
-          })
-        }
-        </div>
+        onPlay={handlePlay}
+      >
+        <source src={source} type="video/webm" />
+        <source src={source} type="video/mp4" />
+        <source src={source} type="video/mov" />
+        Your browser does not support the video tag.
+      </video>
+      <div className='text-holder'>
+        {titleArray.map((text, index) => (
+          <span key={index} className="video-container-subtext">{text.trim()}</span>
+        ))}
+      </div>
     </div>
   );
 }
