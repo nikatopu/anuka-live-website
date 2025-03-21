@@ -10,9 +10,6 @@ function Contact() {
           <h2>
             Let's Talk
           </h2>
-          <p>
-            Looking to start a project or just need to collaborate? Feel Free to contact me.  
-          </p>
           <a href='mailto:contact@anuka.live'>contact@anuka.live</a>
         </div>
         <div className="section-contact-page-left-bottom">
