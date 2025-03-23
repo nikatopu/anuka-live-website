@@ -4,7 +4,7 @@ import './SingleVideo.scss';
 function SingleVideo({ source, isPlaying, onPlay }) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
-  const title = source.slice(11, -5);
+  const title = source.slice(4);
   const titleArray = title.split(/\.|,/);
   const videoSource = "/videos/" + source + ".webm";
   const thumbnailSource = "/img/pages/sound design/" + source + ".webp";
