@@ -11,6 +11,13 @@
 */
 const blogs = [
     {
+        image: "/img/pages/news/blogs/AnukaMarketer.webp",
+        title: "Anuka Kipshidze - Zeekr Music Discovery",
+        desc: "“I love sharing. Whatever I do, I have to tell someone about it” - Anuka Kipshidze",
+        redirect: "https://www.marketer.ge/anuka-yifshidze-zeekr-music/?fbclid=IwY2xjawJUw3tleHRuA2FlbQIxMQABHbklufDhYSPc3jYSiMdtBcBarle7iwcOdFwnbLqzJZMWbbFAJS6Da6Gc2A_aem_h8DkFwpQTX6WxOJERxxwSA",
+        tags: "Marketer",
+    },
+    {
         image: "/img/pages/news/blogs/Ali.webp",
         title: "Ali - Anuka Kipshidze Releases a New Single",
         desc: "Georgian musician Anuka Kipshidze has released a new composition titled Ali.",
