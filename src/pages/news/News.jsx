@@ -1,15 +1,25 @@
-import React from 'react'
-import AllNews from '../../content/pages/news/AllNews'
-import newsBlogs from '../../content/pages/news/newsBlogs.js'
-import './News.scss'
-import PageGradients from '../../content/PageGradients.jsx'
+import AllNews from "../../content/pages/news/AllNews";
+import "./News.scss";
+import { useAppContext } from "../../lib/AppContext.jsx";
 
 function News() {
+  const { blogs, loading } = useAppContext();
+
   return (
-    <div className='section-news' id='section-news'>
-      <AllNews blogs={newsBlogs.blogs}/>
+    <div className="section-news" id="section-news">
+      {!loading && <AllNews blogs={blogs} />}
+      {loading && (
+        <div className="news-loading-filler">
+          <div className="news-loading-filler-component-big"></div>
+          {Array(6)
+            .fill()
+            .map(() => (
+              <div className="news-loading-filler-component"></div>
+            ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default News
+export default News;

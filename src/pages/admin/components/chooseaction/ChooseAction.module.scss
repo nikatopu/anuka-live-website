@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.option {
+  width: 100%;
+  max-width: 20em;
+
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  box-shadow: 0 0 0.5em rgb(255, 255, 255);
+  padding: 1em;
+  border-radius: 2em;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-0.5em) scale(1.02);
+  }
+}

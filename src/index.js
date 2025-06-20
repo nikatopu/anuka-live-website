@@ -1,18 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { sendToVercelAnalytics } from './vitals';
-import { BrowserRouter } from 'react-router-dom';
+// NEW WAY (React 18 style)
+import React from "react";
+import ReactDOM from "react-dom/client"; // <-- IMPORTANT: Import from 'react-dom/client'
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { sendToVercelAnalytics } from "./vitals";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./content/auth/AuthContext";
+import AppContextProvider from "./lib/AppContext";
 
-ReactDOM.render(
+const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AppContextProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </AppContextProvider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 reportWebVitals(sendToVercelAnalytics);

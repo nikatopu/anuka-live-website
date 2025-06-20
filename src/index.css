@@ -1,7 +1,13 @@
 :root {
   --color-bg: #000000;
-  --color-text: #FFFFFF;
-  --color-accent: #F86830;
+  --color-text: #ffffff;
+  --color-accent: #f86830;
+
+  --navbar-height: 5em;
+  --footer-height: 8em;
+  --content-min-height: calc(
+    100svh - var(--footer-height) - var(--navbar-height)
+  );
 }
 
 body {
@@ -15,6 +21,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

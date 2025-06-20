@@ -1,0 +1,45 @@
+// Define database connection via the `DATABASE_URL` env var
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define custom output path for generated Prisma Client
+generator client {
+   provider = "prisma-client-js"
+  
+  // This line is VITAL for deploying to Vercel. It ensures the correct
+  // database engine is available in the serverless function environment.
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+
+  // By REMOVING the custom `output` line, Prisma will use its default path.
+  // This default path works perfectly for both local development and for
+  // the Vercel build process.
+}
+
+// Song Model
+model Song {
+  id           Int      @id @default(autoincrement())
+  name         String
+  videoLink    String
+  thumbnailUrl String
+  createdAt    DateTime @default(now())
+}
+
+// Blog Model
+model Blog {
+  id           Int      @id @default(autoincrement())
+  imageUrl     String
+  title        String
+  description  String
+  redirectLink String
+  tags         String
+  createdAt    DateTime @default(now())
+}
+
+// Admin Model
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String // hashed
+}
