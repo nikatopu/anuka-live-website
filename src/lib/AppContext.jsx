@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const AppContext = createContext(null);
 
@@ -7,6 +8,14 @@ export default function AppContextProvider({ children }) {
   const [songs, setSongs] = useState([{}]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isAdminPage, setIsAdminPage] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(
+    () => setIsAdminPage(location.pathname.startsWith("/admin")),
+    [location]
+  );
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -58,6 +67,7 @@ export default function AppContextProvider({ children }) {
         setLoading,
         error,
         setError,
+        isAdminPage,
       }}
     >
       {children}
