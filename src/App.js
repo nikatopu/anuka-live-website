@@ -18,6 +18,7 @@ import LoginPage from "./pages/admin/components/login/Login";
 import Dashboard from "./pages/admin/components/dashboard/Dashboard";
 import BlogsAdminPage from "./pages/admin/components/blogs/Blogs";
 import SongsAdminPage from "./pages/admin/components/songs/SongsAdminPage";
+import SoundDesignAdminPage from "./pages/admin/components/sound-design/SoundDesignAdminPage";
 
 function App() {
   // App.js should ONLY be responsible for routing.
@@ -47,7 +48,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="blogs" element={<BlogsAdminPage />} />
         <Route path="songs" element={<SongsAdminPage />} />
-        {/* Note: ChooseAction is likely part of the Dashboard now, not its own route */}
+        <Route path="sound-design" element={<SoundDesignAdminPage />} />
       </Route>
     </Routes>
   );

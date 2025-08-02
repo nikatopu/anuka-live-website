@@ -25,6 +25,9 @@ const AdminLayout = () => {
           <li>
             <Link to="/admin/songs">Manage Songs</Link>
           </li>
+          <li>
+            <Link to="/admin/sound-design">Manage Sound Design Reels</Link>
+          </li>
         </ul>
         <button onClick={logout} className={style.logoutButton}>
           Logout

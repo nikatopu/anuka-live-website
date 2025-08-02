@@ -12,6 +12,8 @@ const AppContext = createContext(null);
 export default function AppContextProvider({ children }) {
   const [blogs, setBlogs] = useState([]);
   const [songs, setSongs] = useState([]);
+  const [soundDesigns, setSoundDesigns] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isAdminPage, setIsAdminPage] = useState(false);
@@ -48,17 +50,30 @@ export default function AppContextProvider({ children }) {
     }
   }, []);
 
+  const fetchSoundDesigns = useCallback(async () => {
+    try {
+      const response = await fetch("/api/get/sound-designs");
+      if (!response.ok)
+        throw new Error("Sound Design data could not be fetched!");
+      const data = await response.json();
+      setSoundDesigns(data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }, []);
+
   const refetchAllData = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      await Promise.all([fetchBlogs(), fetchSongs()]);
+      // Add the new fetch function to Promise.all
+      await Promise.all([fetchBlogs(), fetchSongs(), fetchSoundDesigns()]);
     } catch (err) {
       setError("An unexpected error occurred while fetching data.");
     } finally {
       setLoading(false);
     }
-  }, [fetchBlogs, fetchSongs]);
+  }, [fetchBlogs, fetchSongs, fetchSoundDesigns]); // Add new dependency
 
   useEffect(() => {
     refetchAllData();
@@ -72,7 +87,7 @@ export default function AppContextProvider({ children }) {
         loading,
         error,
         isAdminPage,
-        // Expose the refetch function so other components can trigger an update
+        soundDesigns,
         refetchAllData,
       }}
     >

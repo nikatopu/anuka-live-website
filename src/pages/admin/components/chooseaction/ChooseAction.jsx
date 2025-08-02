@@ -13,6 +13,11 @@ export default function ChooseAction() {
       description: "Edit, add or delete music",
       link: "/admin/songs",
     },
+    {
+      title: "Sound Design",
+      description: "Edit, add or delete sound design reels",
+      link: "/admin/sound-design",
+    },
   ];
 
   return (

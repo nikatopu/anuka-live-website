@@ -54,3 +54,12 @@ model Admin {
   username String @unique
   password String // hashed
 }
+
+// The reels
+model SoundDesign {
+  id           Int      @id @default(autoincrement())
+  title        String   // e.g., "My Cool Reel"
+  videoUrl     String   // URL for the video from Cloudinary
+  thumbnailUrl String   // URL for the thumbnail image from Cloudinary
+  createdAt    DateTime @default(now())
+}

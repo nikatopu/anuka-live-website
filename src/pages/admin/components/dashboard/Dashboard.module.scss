@@ -10,10 +10,6 @@ $dark-grey: #595959;
 $border-radius: 8px;
 $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 
-.dashboardContainer {
-  // The AdminLayout already provides padding, so we might not need extra here.
-}
-
 .dashboardHeader {
   margin-bottom: 2.5rem;
   padding: 2rem;
@@ -95,10 +91,4 @@ $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   width: 50px;
   background-color: $light-grey;
   border-radius: 4px;
-}
-
-// --- Actions Section ---
-.actionsContainer {
-  // This is a container for your ChooseAction component.
-  // The styles for the actual options will come from ChooseAction.module.scss
 }

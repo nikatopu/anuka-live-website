@@ -1,7 +1,7 @@
 import { useAppContext } from "../../../../lib/AppContext";
 import ChooseAction from "../chooseaction/ChooseAction";
 import style from "./Dashboard.module.scss";
-import { FiFileText, FiMusic } from "react-icons/fi"; // Import icons for stats
+import { FiFileText, FiMusic, FiVideo } from "react-icons/fi"; // <-- Import the FiVideo icon
 
 const StatCard = ({ icon, title, value, loading }) => {
   return (
@@ -20,8 +20,13 @@ const StatCard = ({ icon, title, value, loading }) => {
 };
 
 const Dashboard = () => {
-  // Get live data from our global context
-  const { blogs, songs, loading: isGlobalLoading } = useAppContext();
+  // --- Get the new soundDesigns data from our global context ---
+  const {
+    blogs,
+    songs,
+    soundDesigns,
+    loading: isGlobalLoading,
+  } = useAppContext();
 
   return (
     <div className={style.dashboardContainer}>
@@ -47,12 +52,18 @@ const Dashboard = () => {
           value={songs.length}
           loading={isGlobalLoading}
         />
-        {/* You can easily add more stat cards here in the future */}
+        {/* --- ADDED THE NEW STAT CARD --- */}
+        <StatCard
+          icon={<FiVideo size={24} />}
+          title="Sound Design Reels"
+          value={soundDesigns.length}
+          loading={isGlobalLoading}
+        />
       </div>
 
       {/* --- Main Action/Navigation Component --- */}
       <div className={style.actionsContainer}>
-        {/* Your ChooseAction component will be rendered here */}
+        {/* Your ChooseAction component will render here and should already be updated */}
         <ChooseAction />
       </div>
     </div>

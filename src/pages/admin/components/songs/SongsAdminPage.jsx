@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useAuth } from "../../../../content/auth/AuthContext";
 import { useAppContext } from "../../../../lib/AppContext";
 import style from "../blogs/Blogs.module.scss"; // Reusing the same great styles
 import {
-  FiUploadCloud,
   FiTrash2,
   FiEdit,
   FiVideo,
