@@ -17,7 +17,7 @@ const AdminLayout = () => {
         <h2>Admin Panel</h2>
         <ul>
           <li>
-            <Link to="/admin/dashboard">Dashboard</Link>
+            <Link to="/admin">Dashboard</Link>
           </li>
           <li>
             <Link to="/admin/blogs">Manage Blogs</Link>
