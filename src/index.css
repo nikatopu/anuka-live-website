@@ -1,23 +1,17 @@
-:root {
-  --color-bg: #000000;
-  --color-text: #ffffff;
-  --color-accent: #f86830;
-
-  --navbar-height: 5em;
-  --footer-height: 8em;
-  --content-min-height: calc(
-    100svh - var(--footer-height) - var(--navbar-height)
-  );
-}
-
+/* These are truly global styles that can apply everywhere */
 body {
   font-family: "Inter", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  overflow-x: hidden;
-  margin: 0;
+  margin: 0; /* Always a good reset */
+  overflow-x: hidden; /* Good for preventing horizontal scroll issues */
+}
+
+/* You might want a universal box-sizing rule */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 code {

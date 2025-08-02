@@ -1,4 +1,3 @@
-// src/pages/admin/AdminLayout.jsx
 import { useAuth } from "../../content/auth/AuthContext";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import style from "./Admin.module.scss";

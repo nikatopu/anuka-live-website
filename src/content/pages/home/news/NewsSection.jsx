@@ -4,8 +4,54 @@ import BillBoard from "./billboards/BillBoard";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../../../lib/AppContext";
 
+// --- A Skeleton Loader Component for a Better UX ---
+const NewsSectionSkeleton = () => {
+  return (
+    <div className="section-news" id="section-news-skeleton">
+      <div className="section-news-header">
+        {/* You can keep the static SVG header */}
+        <svg
+          width="155"
+          height="32"
+          viewBox="0 0 155 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* ... your SVG paths ... */}
+        </svg>
+      </div>
+      <div className="skeleton-body">
+        <div className="skeleton-featured-card" />
+        <div className="skeleton-right-column">
+          <div className="skeleton-billboard" />
+          <div className="skeleton-billboard" />
+          <div className="skeleton-billboard" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function NewsSection() {
-  const { blogs } = useAppContext();
+  const { blogs, loading } = useAppContext();
+
+  // --- THE FIX: GUARD CLAUSES ---
+
+  // 1. If the context is loading, show the skeleton and stop.
+  if (loading) {
+    return <NewsSectionSkeleton />;
+  }
+
+  // 2. If loading is done but there are no blogs, render nothing.
+  if (!blogs || blogs.length === 0) {
+    return null;
+  }
+
+  // --- IT'S NOW SAFE TO RENDER THE REAL COMPONENT ---
+  // We are guaranteed that `blogs` is an array with at least one item.
+
+  const firstBlog = blogs[0];
+  const otherBlogs = blogs.slice(1, 4);
 
   return (
     <div className="section-news" id="section-news">
@@ -32,33 +78,31 @@ function NewsSection() {
       <div className="section-news-body">
         <a
           className="section-news-body-left"
-          href={blogs[0].redirectLink}
+          href={firstBlog.redirectLink}
           target="_blank"
           rel="noreferrer"
         >
           <picture>
-            <source src={blogs[0].imageUrl} />
-            <img src={blogs[0].imageUrl} alt={blogs[0].description} />
+            <source src={firstBlog.imageUrl} />
+            <img src={firstBlog.imageUrl} alt={firstBlog.description} />
           </picture>
           <div className="section-news-body-left-description">
-            <h2>{blogs[0].title}</h2>
-            <p>{blogs[0].description}</p>
+            <h2>{firstBlog.title}</h2>
+            <p>{firstBlog.description}</p>
           </div>
         </a>
         <div className="section-news-body-right">
-          {blogs.slice(1, 4).map((element, index) => {
-            return (
-              <BillBoard
-                title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-                  letter.toUpperCase()
-                )}
-                description={element.description}
-                link={element.redirectLink}
-                tag={element.tags}
-                key={index}
-              />
-            );
-          })}
+          {otherBlogs.map((element, index) => (
+            <BillBoard
+              title={element.title.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+                letter.toUpperCase()
+              )}
+              description={element.description}
+              link={element.redirectLink}
+              tag={element.tags}
+              key={element.id || index} // Use a stable key like element.id
+            />
+          ))}
           <Link
             className="section-news-body-right-viewmore"
             to={"/news"}

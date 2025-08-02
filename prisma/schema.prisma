@@ -21,8 +21,19 @@ generator client {
 model Song {
   id           Int      @id @default(autoincrement())
   name         String
-  videoLink    String
-  thumbnailUrl String
+  description  String?  // Description can be optional
+  
+  // Images
+  imageBig     String   // URL for the large image from Cloudinary
+  imageSmall   String   // URL for the small image from Cloudinary
+
+  // Streaming Links (all optional)
+  linkSpotify   String?
+  linkAppleMusic String? // Renamed from iMusic for clarity
+  linkYouTube   String?
+  linkSoundCloud String?
+  linkBandCamp  String?
+  
   createdAt    DateTime @default(now())
 }
 

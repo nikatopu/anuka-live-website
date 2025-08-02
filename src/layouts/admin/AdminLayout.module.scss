@@ -1,0 +1,35 @@
+.adminContainer {
+  background-color: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+}
+
+.adminNav {
+  background-color: #001529;
+  color: white;
+  width: 250px;
+  height: 100vh;
+
+  position: sticky;
+  right: 0;
+  top: 0;
+
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.adminContent {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.adminContent h2 {
+  color: #001529;
+}

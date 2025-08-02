@@ -1,240 +1,258 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAuth } from "../../../../content/auth/AuthContext";
-import { useAppContext } from "../../../../lib/AppContext";
 import style from "./Blogs.module.scss";
+import { useAppContext } from "../../../../lib/AppContext";
+import {
+  FiUploadCloud,
+  FiTrash2,
+  FiEdit,
+  FiXCircle,
+  FiCheckCircle,
+} from "react-icons/fi";
+
+const BlogCardSkeleton = () => (
+  <div className={`${style.blogCard} ${style.skeleton}`}>
+    <div className={style.skeletonImage}></div>
+    <div className={style.skeletonText}></div>
+    <div className={style.skeletonActions}></div>
+  </div>
+);
 
 const BlogsAdminPage = () => {
-  const { authHeader } = useAuth(); // Get the authentication header function
-  const { blogs, setBlogs, loading, setLoading } = useAppContext();
+  const { authHeader } = useAuth();
+  const { blogs, loading: isGlobalLoading, refetchAllData } = useAppContext();
 
-  // State for the upload form
+  // Form state
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [redirectLink, setRedirectLink] = useState("");
   const [tags, setTags] = useState("");
-  const [imageFile, setImageFile] = useState(null); // To hold the selected file object
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
 
-  // State for handling feedback to the user
-  const [uploading, setUploading] = useState(false);
-  const [message, setMessage] = useState("");
+  // User feedback state
+  const [isUploading, setIsUploading] = useState(false);
+  const [message, setMessage] = useState({ type: "", text: "" }); // { type: 'success' | 'error', text: '...' }
 
-  // Function to fetch the list of all blogs from the secure endpoint
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/admin/blogs", {
-        headers: authHeader(), // Secure the request
-      });
-      if (!response.ok) throw new Error("Failed to fetch blogs.");
-      const data = await response.json();
-      setBlogs(data);
-    } catch (error) {
-      setMessage(`Error: ${error.message}`);
-    } finally {
-      setLoading(false);
+  const fileInputRef = useRef(null); // To trigger file input click
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  // Handler for the form submission
+  const clearForm = (formElement) => {
+    setTitle("");
+    setDescription("");
+    setRedirectLink("");
+    setTags("");
+    setImageFile(null);
+    setImagePreview("");
+    if (formElement) {
+      formElement.reset();
+    }
+  };
+
   const handleBlogSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    if (uploading) return;
-
-    if (!imageFile) {
-      setMessage("Please select an image file to upload.");
+    e.preventDefault();
+    if (isUploading || !imageFile) {
+      setMessage({ type: "error", text: "Please select an image file." });
       return;
     }
 
-    setUploading(true);
-    setMessage("Uploading blog...");
+    setIsUploading(true);
+    setMessage({ type: "info", text: "Uploading blog..." });
 
-    // FormData is essential for sending files (multipart/form-data)
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("redirectLink", redirectLink);
     formData.append("tags", tags);
-    formData.append("image", imageFile); // 'image' must match the key expected by formidable on the backend
+    formData.append("image", imageFile);
 
     try {
       const response = await fetch("/api/admin/blogs", {
         method: "POST",
-        headers: {
-          ...authHeader(), // Add the 'Authorization: Bearer <token>' header
-          // DO NOT set 'Content-Type': 'multipart/form-data'. The browser will do it automatically with the correct boundary when you use FormData.
-        },
+        headers: { ...authHeader() },
         body: formData,
       });
-
       const result = await response.json();
+      if (!response.ok) throw new Error(result.message || "Upload failed.");
 
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to upload blog.");
-      }
+      setMessage({ type: "success", text: "Blog uploaded successfully!" });
+      clearForm(e.target);
 
-      setMessage("Blog uploaded successfully!");
-
-      // Clear the form fields after successful upload
-      setTitle("");
-      setDescription("");
-      setRedirectLink("");
-      setTags("");
-      setImageFile(null);
-      e.target.reset(); // Resets the file input
-
-      // Refresh the list of blogs to show the new one
-      fetchBlogs();
+      await refetchAllData();
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      setMessage({ type: "error", text: `Error: ${error.message}` });
     } finally {
-      setUploading(false);
+      setIsUploading(false);
     }
   };
 
   const handleDelete = async (blogId) => {
-    if (loading) return;
-    setLoading(true);
-    if (!window.confirm("Are you sure you want to delete this blog?")) {
-      return;
-    }
-    setMessage(`Deleting blog #${blogId}...`);
+    if (!window.confirm("Are you sure you want to delete this blog?")) return;
+
+    setMessage({ type: "info", text: `Deleting blog...` });
 
     try {
       const response = await fetch(`/api/admin/blogs?id=${blogId}`, {
         method: "DELETE",
-        headers: {
-          ...authHeader(),
-        },
+        headers: authHeader(),
       });
-
       const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.message || "Failed to delete the blog.");
-      }
+      if (!response.ok) throw new Error(result.message);
 
-      setMessage("Blog deleted successfully.");
-      fetchBlogs();
+      setMessage({ type: "success", text: "Blog deleted successfully." });
+
+      await refetchAllData();
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
-    } finally {
-      setLoading(false);
+      setMessage({ type: "error", text: `Failed to delete: ${error.message}` });
     }
   };
 
   return (
-    <div className={style.container}>
-      <h2>Manage Blogs</h2>
+    <div className={style.pageContainer}>
+      <header className={style.pageHeader}>
+        <h1>Manage Blogs</h1>
+        <p>Create, update, and delete blog posts from this panel.</p>
+      </header>
 
-      {/* UPLOAD FORM */}
-      <div className={style.uploadForm}>
-        <h3>Upload New Blog</h3>
-        <form onSubmit={handleBlogSubmit}>
-          <div>
-            <label htmlFor="title">Title:</label>
+      <div className={style.mainContent}>
+        <div className={style.formContainer}>
+          <form onSubmit={handleBlogSubmit} className={style.uploadForm}>
+            <h3>Upload New Blog</h3>
+
+            <div
+              className={style.fileDropZone}
+              onClick={() => fileInputRef.current.click()}
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+                required
+              />
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className={style.imagePreview}
+                />
+              ) : (
+                <div className={style.dropZonePrompt}>
+                  <FiUploadCloud size={50} />
+                  <span>Click or drag image here</span>
+                </div>
+              )}
+            </div>
+
             <input
               type="text"
-              id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder={"Ex: Anuka Kipshidze - The best of the best"}
+              placeholder="Blog Title"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="description">Description:</label>
             <textarea
-              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder={
-                "Ex: The best of the best, Anuka Kipshidze wins another award..."
-              }
+              placeholder="Short Description"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="redirectLink">Redirect Link:</label>
             <input
-              type="text"
-              id="redirectLink"
+              type="url"
               value={redirectLink}
               onChange={(e) => setRedirectLink(e.target.value)}
-              placeholder={"Ex: hhtps://www.billboard.com/anuka-is-awesome/"}
+              placeholder="https://full-article-link.com"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="tags">Tags (comma-separated):</label>
             <input
               type="text"
-              id="tags"
               value={tags}
               onChange={(e) => setTags(e.target.value)}
-              placeholder={"Ex: Billboard, TSA"}
+              placeholder="Tags (comma, separated)"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="image">Image:</label>
-            <input
-              type="file"
-              id="image"
-              accept="image/*"
-              onChange={(e) => setImageFile(e.target.files[0])}
-              required
-            />
-          </div>
-          <button type="submit" disabled={uploading}>
-            {uploading ? "Uploading..." : "Upload Blog"}
-          </button>
-        </form>
-        {message && <p>{message}</p>}
-      </div>
 
-      <hr style={{ margin: "2rem 0" }} />
+            <button
+              type="submit"
+              disabled={isUploading}
+              className={style.submitButton}
+            >
+              {isUploading ? "Uploading..." : "Publish Blog"}
+            </button>
 
-      {/* BLOGS LIST */}
-      <div className="blogs-list">
-        <h3>Existing Blogs</h3>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Title</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {blogs.map((blog) => (
-                <tr key={blog.id}>
-                  <td>
-                    <img src={blog.imageUrl} alt={blog.title} width="100" />
-                  </td>
-                  <td>{blog.title}</td>
-                  <td>
-                    {/* Add Edit/Delete buttons here */}
+            {/* --- Modern Message/Toast Area --- */}
+            {message.text && (
+              <div className={`${style.message} ${style[message.type]}`}>
+                {message.type === "success" && <FiCheckCircle />}
+                {message.type === "error" && <FiXCircle />}
+                {message.text}
+              </div>
+            )}
+          </form>
+        </div>
+
+        {/* Right Column: Existing Blogs List */}
+        <div className={style.listContainer}>
+          <h3>Existing Blogs</h3>
+          <div className={style.blogGrid}>
+            {isGlobalLoading ? (
+              // --- Skeleton Loading ---
+              <>
+                <BlogCardSkeleton />
+                <BlogCardSkeleton />
+                <BlogCardSkeleton />
+              </>
+            ) : (
+              // --- Blog Cards ---
+              blogs.map((blog) => (
+                <div key={blog.id} className={style.blogCard}>
+                  <img
+                    src={blog.imageUrl}
+                    alt={blog.title}
+                    className={style.cardImage}
+                  />
+                  <div className={style.cardContent}>
+                    <h4>{blog.title}</h4>
+                    <p>{blog.description.substring(0, 80)}...</p>
+                    <div className={style.cardTags}>
+                      {blog.tags.split(",").map((tag) => (
+                        <span key={tag} className={style.tag}>
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={style.cardActions}>
                     <button
+                      className={style.iconButton}
                       onClick={() => alert("Edit functionality to be added!")}
                     >
-                      Edit
+                      <FiEdit />
                     </button>
-                    {/* The delete button is functional if you create the DELETE API endpoint */}
                     <button
+                      className={`${style.iconButton} ${style.deleteButton}`}
                       onClick={() => handleDelete(blog.id)}
-                      style={{ marginLeft: "8px" }}
                     >
-                      Delete
+                      <FiTrash2 />
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

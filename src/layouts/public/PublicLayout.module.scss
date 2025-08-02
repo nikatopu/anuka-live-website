@@ -1,0 +1,20 @@
+.publicLayoutContainer {
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-accent: #f86830;
+
+  --navbar-height: 5em;
+  --footer-height: 8em;
+  
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  min-height: calc(100svh - var(--footer-height) - var(--navbar-height));
+  flex-grow: 1;
+}

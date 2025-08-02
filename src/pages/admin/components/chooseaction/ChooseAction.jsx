@@ -8,16 +8,11 @@ export default function ChooseAction() {
       description: "Edit, add or delete blogs",
       link: "/admin/blogs",
     },
-    // {
-    //   title: "Music",
-    //   description: "Edit, add or delete music",
-    //   link: "/admin/music",
-    // },
-    // {
-    //   title: "Sound Design",
-    //   description: "Edit, add or delete sound design reels",
-    //   link: "/admin/sound-design",
-    // },
+    {
+      title: "Music",
+      description: "Edit, add or delete music",
+      link: "/admin/songs",
+    },
   ];
 
   return (

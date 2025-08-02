@@ -1,0 +1,104 @@
+/* Dashboard.module.scss */
+
+// Import shared variables if you have them, or define them here
+$primary-color: #f86830;
+$dark-color: #001529;
+$light-grey: #f0f2f5;
+$white: #ffffff;
+$text-color: #333;
+$dark-grey: #595959;
+$border-radius: 8px;
+$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+.dashboardContainer {
+  // The AdminLayout already provides padding, so we might not need extra here.
+}
+
+.dashboardHeader {
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    $dark-color 0%,
+    darken($primary-color, 5%) 100%
+  );
+  color: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem;
+  }
+  p {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+}
+
+// --- Stats Section ---
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.statCard {
+  background-color: $white;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.statIcon {
+  background-color: lighten($primary-color, 35%);
+  color: $primary-color;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.statTitle {
+  font-size: 1rem;
+  color: $dark-grey;
+  margin-bottom: 0.25rem;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: $dark-color;
+}
+
+.skeletonStatValue {
+  height: 2rem;
+  width: 50px;
+  background-color: $light-grey;
+  border-radius: 4px;
+}
+
+// --- Actions Section ---
+.actionsContainer {
+  // This is a container for your ChooseAction component.
+  // The styles for the actual options will come from ChooseAction.module.scss
+}

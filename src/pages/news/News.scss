@@ -1,43 +1,111 @@
+/* News.scss */
+
+// A variable for the shimmer animation color
+$skeleton-bg: #e0e0e0; // A light grey
+
+// The main container for the entire news section
 .section-news {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-self: center;
   width: 100%;
+  padding: 2rem 0; // Add some vertical padding
 }
 
-@keyframes flash {
+// Keyframes for the shimmer/pulse effect
+@keyframes shimmer {
   0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.75;
+    background-position: -1000px 0;
   }
   100% {
-    opacity: 1;
+    background-position: 1000px 0;
   }
 }
-.news-loading-filler {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2em;
-  flex-wrap: wrap;
-  width: 70%;
-  animation: flash 1s infinite;
-}
 
-.news-loading-filler-component-big {
+// --- Skeleton Styles ---
+
+// A container to hold the entire skeleton structure, matching AllNews layout
+.skeleton-container {
   width: 100%;
-  height: 29.5em;
-  background-color: rgb(255, 255, 255);
-  border-radius: 2em;
+  max-width: 1200px; // Match the max-width of your content if you have one
+  padding: 0 1rem;
 }
 
-.news-loading-filler-component {
-  width: 25em;
-  height: 15em;
-  background-color: lightgray;
-  border-radius: 2em;
+// A reusable animation class for all skeleton elements
+.skeleton-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, $skeleton-bg 8%, darken($skeleton-bg, 5%) 18%, $skeleton-bg 33%);
+  background-size: 1000px 104px;
+}
+
+// Skeleton for the BIG featured card
+.skeleton-featured-card {
+  display: flex;
+  flex-direction: column;
+  background-color: lighten($skeleton-bg, 5%); // A slightly lighter grey for the card
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  
+  .skeleton-image {
+    height: 400px;
+    @extend .skeleton-shimmer; // Apply the shimmer animation
+  }
+
+  .skeleton-content {
+    padding: 2rem;
+  }
+
+  .skeleton-title {
+    height: 2.5rem;
+    width: 60%;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    @extend .skeleton-shimmer;
+  }
+
+  .skeleton-text {
+    height: 1rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    @extend .skeleton-shimmer;
+  }
+}
+
+// Wrapper for the grid of smaller cards
+.skeleton-others-wrapper {
+  width: 100%;
+}
+
+.skeleton-grid {
+  display: grid;
+  // This grid layout will responsively adjust the number of columns
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+// Skeleton for each SMALL card in the grid
+.skeleton-small-card {
+  display: flex;
+  flex-direction: column;
+  background-color: lighten($skeleton-bg, 5%);
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .skeleton-image {
+    height: 180px;
+    @extend .skeleton-shimmer;
+  }
+
+  .skeleton-content {
+    padding: 1.5rem;
+  }
+
+  .skeleton-title-small {
+    height: 1.5rem;
+    width: 80%;
+    border-radius: 0.5rem;
+    @extend .skeleton-shimmer;
+  }
 }
