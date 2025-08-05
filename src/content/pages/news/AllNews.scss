@@ -1,107 +1,106 @@
 .section-blogs {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+
+  padding: 0 5rem;
+  width: 100%;
+
+  &-first {
+    width: 80%;
+
+    #background-image {
+      width: 100%;
+      border-radius: 25px;
+    }
+
+    &-description {
+      translate: 30px calc(-100% - 30px);
+
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      &-text {
+        h1 {
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 46px;
+          letter-spacing: 0%;
+          margin: 0;
+        }
+
+        p {
+          font-weight: 300;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 1%;
+          color: #ffffffcc;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &-others-wrapper {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 
-    padding: 0 5rem;
-    width: calc(100% - 10rem);
-
-    &-first {
-        width: 80%;
-
-        #background-image {
-            width: 100%;
-            border-radius: 25px;
-        }
-
-        &-description {
-            translate: 30px calc(-100% - 30px);
-
-            display: flex;
-            flex-direction: row;
-            width: calc(100% - 60px);
-            justify-content: space-between;
-            align-items: center;
-
-            &-text {
-                h1 {
-                    font-weight: 700;
-                    font-size: 32px;
-                    line-height: 46px;
-                    letter-spacing: 0%;
-                    margin: 0;
-                }
-
-                p {
-                    font-weight: 300;
-                    font-size: 14px;
-                    line-height: 20px;
-                    letter-spacing: 1%;
-                    color: #FFFFFFCC;
-                    margin: 0;
-                }
-            }
-        }
-    }
-
-    &-others-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    &-others {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: baseline;
-        width: 80%;
-        gap: 5%;
-    }
+  &-others {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: baseline;
+    width: 80%;
+    gap: 5%;
+  }
 }
 
 @media screen and (max-width: 800px) {
-    .section-blogs {
+  .section-blogs {
+    width: 100%;
+    padding: 0 1rem;
+
+    &-first {
+      width: 80%;
+
+      &-description {
+        translate: 0 0;
+        flex-direction: column;
+        align-items: end;
         width: 100%;
-        padding: 0 1rem;
+        padding: 1rem 0;
+        gap: 5px;
 
-        &-first {
-            width: 80%;
-
-            &-description {
-                translate: 0 0;
-                flex-direction: column;
-                align-items: end;
-                width: 100%;
-                padding: 1rem 0;
-                gap: 5px;
-
-                img {
-                    width: 40px;
-                    translate: 0 -90px;
-                }
-
-                &-text {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-
-                    h1 {
-                        font-size: 24px;
-                        line-height: 24px;
-                    }
-
-                    p {
-                        font-size: 16px;
-                        line-height: 16px;
-                    }
-                }
-                
-            }
+        img {
+          width: 40px;
+          translate: 0 -90px;
         }
+
+        &-text {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          h1 {
+            font-size: 24px;
+            line-height: 24px;
+          }
+
+          p {
+            font-size: 16px;
+            line-height: 16px;
+          }
+        }
+      }
     }
+  }
 }
