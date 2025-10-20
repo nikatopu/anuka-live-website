@@ -39,7 +39,7 @@ const music = [
     title: "Trampoline Man",
     desc: "Anman x Anuka Kipshidze",
     image: {
-      big: "/img/pages/music/TrampolineMan.jpg",
+      big: "/img/pages/music/TrampolineMan.jpeg",
       small: "/img/pages/music/TrampolineMan_small.jpg",
       name: "Trampoline Man",
     },

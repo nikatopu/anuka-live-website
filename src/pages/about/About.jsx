@@ -100,7 +100,10 @@ function About() {
             listeners excited.
           </h4>
         </div>
-        <img src="https://res.cloudinary.com/dvwkvoqss/image/upload/v1754126404/about-collage_dy9iu8.png" />
+        <img
+          src="https://res.cloudinary.com/dvwkvoqss/image/upload/v1754126404/about-collage_dy9iu8.png"
+          alt="collage"
+        />
       </div>
     </div>
   );
