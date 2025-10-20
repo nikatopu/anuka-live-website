@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useAppContext } from "../../../../../lib/AppContext";
 import "./TrackTile.scss";
+import allMusic from "../../../music/music";
 
 /**
  * Creates a tile for the track
@@ -12,6 +14,97 @@ import "./TrackTile.scss";
 function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const {
+    requestPlay,
+    releaseController,
+    setCurrentlyPlaying,
+    currentlyPlaying,
+    playYouTube,
+    pauseYouTube,
+    stopCurrent,
+  } = useAppContext();
+
+  const [isPlaying, setIsPlaying] = useState(
+    currentlyPlaying?.title === nameTrack || false
+  );
+
+  const youtubeUrl =
+    linksTrack && linksTrack.youtube ? linksTrack.youtube : null;
+  const isYouTube = (url) =>
+    !!(url && (url.includes("youtube.com") || url.includes("youtu.be")));
+  const getYouTubeId = (url) => {
+    if (!url) return null;
+    const match =
+      url.match(
+        /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+      ) || [];
+    return match[1] || null;
+  };
+
+  // controllerRef provides a stable controller object to register with context
+  const controllerRef = useRef({
+    pause: () => {
+      try {
+        pauseYouTube();
+      } catch (e) {}
+    },
+    play: (videoId) => {
+      try {
+        playYouTube(videoId);
+      } catch (e) {}
+    },
+    id: null,
+  });
+
+  // no per-tile player event handlers; the global player is responsible
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    setIsPlaying((prev) => !prev); // Optimistic UI update
+
+    const videoId = getYouTubeId(youtubeUrl);
+    setCurrentlyPlaying({
+      title: nameTrack,
+      desc: descTrack,
+      image: imageTrack?.small || imageTrack?.big,
+      videoId,
+    });
+
+    if (!isYouTube(youtubeUrl) || !videoId) return;
+
+    if (controllerRef.current.id === videoId && isPlaying) {
+      stopCurrent();
+      setCurrentlyPlaying(null);
+      setIsPlaying(false);
+      return;
+    }
+
+    // register controller with context so previous playback is paused
+    controllerRef.current.id = videoId;
+    requestPlay(controllerRef.current);
+
+    // start playback on the single global player
+    try {
+      playYouTube(videoId);
+      setIsPlaying(true);
+    } catch (err) {
+      console.warn("playYouTube error", err);
+    }
+  };
+
+  useEffect(() => {
+    // cleanup on unmount: if this controller is current, release it
+    return () => {
+      releaseController(controllerRef.current);
+    };
+  }, [releaseController]);
+
+  useEffect(() => {
+    if (currentlyPlaying?.title !== nameTrack) {
+      setIsPlaying(false);
+    }
+  }, [currentlyPlaying]);
+
   const linkTypes = [
     { key: "spotify", image: "/svg/spotify.svg" },
     { key: "imusic", image: "/svg/imusic.svg" },
@@ -22,6 +115,8 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
 
   const descSplit = descTrack.split(/\.|,/);
 
+  const videoId = getYouTubeId(youtubeUrl);
+
   return (
     <div className="tracktile" id={nameTrack.replace(/\s+/g, "")}>
       <div
@@ -29,7 +124,40 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <picture>
+        <picture style={{ position: "relative" }}>
+          {isYouTube(youtubeUrl) && videoId && (
+            <button
+              type="button"
+              className={`play-button ${isPlaying ? "playing" : ""} ${
+                isHovered ? "hovered" : ""
+              }`}
+              onClick={togglePlay}
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  aria-hidden
+                >
+                  <rect x="5" y="4" width="4" height="16" />
+                  <rect x="15" y="4" width="4" height="16" />
+                </svg>
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  aria-hidden
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              )}
+            </button>
+          )}
           <source media="(min-width:800px)" src={imageTrack?.big} />
           <source media="(max-width:800px)" src={imageTrack?.small} />
           <img
@@ -38,6 +166,7 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
             className={isHovered ? "hovered" : ""}
           />
         </picture>
+
         <div
           className={`tracktile_links ${
             isHovered ? "tracktile_links_hovered" : ""

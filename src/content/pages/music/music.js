@@ -393,6 +393,7 @@ const allMusic = {
   music: music,
   filterByTag: filterByTag,
   filterByTags: filterByTags,
+  getByTitle: (title) => music.find((track) => track.title === title),
 };
 
 export default allMusic;

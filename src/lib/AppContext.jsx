@@ -4,6 +4,7 @@ import {
   useEffect,
   useState,
   useCallback,
+  useRef,
 } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -17,12 +18,108 @@ export default function AppContextProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isAdminPage, setIsAdminPage] = useState(false);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(null); // The object that is currently playing
 
   const location = useLocation();
 
   useEffect(() => {
     setIsAdminPage(location.pathname.startsWith("/admin"));
   }, [location]);
+
+  useEffect(() => {
+    console.log("Currently Playing changed:", currentlyPlaying);
+  }, [currentlyPlaying]);
+
+  const currentPlaybackRef = useRef(null);
+  // Global YouTube player ref and pending video (if any) while player initializes
+  const ytPlayerRef = useRef(null);
+  const pendingYt = useRef(null);
+
+  const requestPlay = useCallback((controller) => {
+    // controller must expose a `pause` function
+    if (!controller || typeof controller.pause !== "function") return;
+    const current = currentPlaybackRef.current;
+    if (current && current !== controller) {
+      try {
+        current.pause();
+      } catch (e) {
+        // ignore
+      }
+    }
+    // set the new current controller
+    currentPlaybackRef.current = controller;
+  }, []);
+
+  // Register the YouTube player instance (from PublicLayout). If a video
+  // was requested before the player was ready, play it now.
+  const registerYtPlayer = useCallback((player) => {
+    ytPlayerRef.current = player;
+    if (pendingYt.current) {
+      try {
+        const { videoId, start = 0 } = pendingYt.current;
+        // load and play pending video
+        if (player.loadVideoById)
+          player.loadVideoById({ videoId, startSeconds: start });
+        else if (player.cueVideoById) player.cueVideoById(videoId);
+      } catch (e) {
+        // ignore
+      }
+      pendingYt.current = null;
+    }
+  }, []);
+
+  const playYouTube = useCallback((videoId, meta = {}) => {
+    if (!videoId) return;
+    const player = ytPlayerRef.current;
+    // if player not ready, remember pending video and return
+    if (!player) {
+      pendingYt.current = { videoId, meta };
+      return;
+    }
+    try {
+      if (player.loadVideoById) player.loadVideoById({ videoId });
+      else if (player.cueVideoById) player.cueVideoById(videoId);
+      if (player.playVideo) player.playVideo();
+    } catch (e) {
+      console.warn("playYouTube failed", e);
+    }
+  }, []);
+
+  const pauseYouTube = useCallback(() => {
+    const player = ytPlayerRef.current;
+    if (!player) return;
+    try {
+      if (player.pauseVideo) player.pauseVideo();
+    } catch (e) {}
+  }, []);
+
+  const stopYouTube = useCallback(() => {
+    const player = ytPlayerRef.current;
+    if (!player) return;
+    try {
+      if (player.stopVideo) player.stopVideo();
+    } catch (e) {}
+  }, []);
+
+  const stopCurrent = useCallback(() => {
+    const current = currentPlaybackRef.current;
+
+    if (current) {
+      try {
+        current.pause();
+      } catch (e) {}
+      currentPlaybackRef.current = null;
+    }
+
+    // also stop the YouTube player
+    stopYouTube();
+  }, []);
+
+  const releaseController = useCallback((controller) => {
+    if (currentPlaybackRef.current === controller) {
+      currentPlaybackRef.current = null;
+    }
+  }, []);
 
   const fetchBlogs = useCallback(async () => {
     try {
@@ -89,6 +186,16 @@ export default function AppContextProvider({ children }) {
         isAdminPage,
         soundDesigns,
         refetchAllData,
+        requestPlay,
+        stopCurrent,
+        releaseController,
+        currentlyPlaying,
+        setCurrentlyPlaying,
+        registerYtPlayer,
+        playYouTube,
+        pauseYouTube,
+        stopYouTube,
+        isYtReady: () => Boolean(ytPlayerRef.current),
       }}
     >
       {children}
