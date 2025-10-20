@@ -1,44 +1,17 @@
-import { useEffect, useState } from "react";
 import { useAppContext } from "../../../lib/AppContext";
 import "./MusicBox.scss";
 
 export default function MusicBox() {
-  const {
-    currentlyPlaying,
-    setCurrentlyPlaying,
-    stopCurrent,
-    playYouTube,
-    pauseYouTube,
-    isYtReady,
-    requestPlay,
-  } = useAppContext();
+  const { currentlyPlaying, setCurrentlyPlaying, stopCurrent } =
+    useAppContext();
 
   function stopMusic() {
     stopCurrent();
     setCurrentlyPlaying(null);
   }
 
-  const [stuck, setStuck] = useState(true);
-
-  useEffect(() => {
-    const header = document.querySelector("nav");
-    if (!header) return;
-
-    const onScroll = () => {
-      const headerBottom = header.getBoundingClientRect().bottom;
-      setStuck(headerBottom > 0);
-    };
-
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <div
-      className={`musicbox ${currentlyPlaying !== null ? "active" : ""} ${
-        stuck ? "stuck" : ""
-      }`}
-    >
+    <div className={`musicbox ${currentlyPlaying !== null ? "active" : ""}`}>
       <h3>Now Playing</h3>
 
       <div className="track-info">

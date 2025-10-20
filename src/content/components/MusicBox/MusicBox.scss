@@ -1,7 +1,8 @@
 .musicbox {
   position: fixed;
   z-index: 9999;
-  top: -100%;
+  bottom: -100%;
+  right: 0;
   //   top: calc(var(--navbar-height) + 10px);
 
   display: flex;
@@ -13,7 +14,7 @@
   width: min(25em, 80vw);
 
   background-color: rgba(0, 0, 0, 0.75);
-  box-shadow: 4px 4px 16px #5b5b5b57;
+  box-shadow: 0 0 16px #cccccc81;
   border-radius: 20px;
 
   -webkit-backdrop-filter: blur(10px);
@@ -22,14 +23,10 @@
   margin: 1em;
   padding: 1em 1.5em;
 
-  transition: top 0.3s ease-in-out;
+  transition: bottom 0.3s ease-in-out;
 
-  &.active.stuck {
-    top: calc(var(--navbar-height) + 10px);
-  }
-
-  &.active:not(.stuck) {
-    top: 0;
+  &.active {
+    bottom: 0;
   }
 
   h3 {
@@ -97,4 +94,15 @@
 
 .close span {
   font-size: 1.5em;
+}
+
+@media (max-width: 800px) {
+  .track-image {
+    max-width: 80px;
+    height: 80px;
+  }
+
+  .track-details {
+    font-size: 0.8em;
+  }
 }
