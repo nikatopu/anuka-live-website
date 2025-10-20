@@ -23,9 +23,9 @@ const music = [
     title: "Piku's Dream",
     desc: "Artwork by Nuzi",
     image: {
-        big: "/img/pages/music/PikusDream.webp",
-        small: "/img/pages/music/PikusDream.webp",
-        name: "Piku's Dream",
+      big: "/img/pages/music/PikusDream.webp",
+      small: "/img/pages/music/PikusDream.webp",
+      name: "Piku's Dream",
     },
     tags: ["Track"],
     links: {
@@ -33,6 +33,7 @@ const music = [
         "https://open.spotify.com/track/1aFV3hudTSIWyFeKBVLJha?si=10933f8b3fc94b9f",
       bandcamp: "https://akipshidze.bandcamp.com/track/pikus-dream",
       imusic: "https://music.apple.com/us/song/pikus-dream/1821171985",
+      soundcloud: "https://on.soundcloud.com/JNLzxvvJx0PEBOYxB0",
     },
   },
   {
