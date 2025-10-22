@@ -34,6 +34,7 @@ const music = [
       bandcamp: "https://akipshidze.bandcamp.com/track/pikus-dream",
       imusic: "https://music.apple.com/us/song/pikus-dream/1821171985",
       soundcloud: "https://on.soundcloud.com/JNLzxvvJx0PEBOYxB0",
+      youtube: "https://youtu.be/8SzUBmB4yVs?si=rFnzRiPdiXPsZrfA",
     },
   },
   {
