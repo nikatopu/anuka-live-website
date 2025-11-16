@@ -30,7 +30,7 @@ const music = [
     tags: ["Track"],
     links: {
       spotify:
-        "https://open.spotify.com/track/1aFV3hudTSIWyFeKBVLJha?si=10933f8b3fc94b9f",
+        "https://open.spotify.com/track/0xT4XqzF61w6mhQYOV8sad?si=aaec6fdbc1154739",
       bandcamp: "https://akipshidze.bandcamp.com/track/pikus-dream",
       imusic: "https://music.apple.com/us/song/pikus-dream/1821171985",
       soundcloud: "https://on.soundcloud.com/JNLzxvvJx0PEBOYxB0",
