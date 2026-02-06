@@ -1,4 +1,3 @@
-// api/admin/login.js
 import prisma from "../../src/lib/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

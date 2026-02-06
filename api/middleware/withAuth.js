@@ -1,4 +1,3 @@
-// api/middleware/withAuth.js
 import jwt from "jsonwebtoken";
 
 const withAuth = (handler) => {

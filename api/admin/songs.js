@@ -1,4 +1,3 @@
-// api/admin/songs.js
 import prisma from "../../src/lib/prisma.js";
 import withAuth from "../middleware/withAuth.js";
 import cloudinary from "../../src/lib/cloudinary.js";
