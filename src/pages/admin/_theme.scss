@@ -1,0 +1,87 @@
+// Shared look for the admin panel. Use with: @use "<relative path>/theme" as *;
+
+$primary: #f86830;
+$primary-dark: #dd5420;
+$primary-soft: #fff1ea;
+$accent: #b2f830;
+
+$ink: #111827; // sidebar background and headings
+$text: #1f2937;
+$muted: #6b7280;
+$border: #e5e7eb;
+$surface: #ffffff;
+$background: #f5f6f8;
+
+$danger: #dc2626;
+$success: #15803d;
+$info: #0369a1;
+
+$radius: 14px;
+$radius-sm: 8px;
+$shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 4px 14px rgba(17, 24, 39, 0.06);
+$shadow-hover: 0 2px 4px rgba(17, 24, 39, 0.06), 0 12px 28px rgba(17, 24, 39, 0.1);
+$focus-ring: 0 0 0 3px rgba($primary, 0.22);
+
+@mixin input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  background: $surface;
+  color: $text;
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: $focus-ring;
+  }
+}
+
+@mixin primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: $radius-sm;
+  background: $primary;
+  color: $surface;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+    box-shadow: 0 6px 16px rgba($primary, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: $focus-ring;
+  }
+
+  &:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+  }
+}
+
+@mixin card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}

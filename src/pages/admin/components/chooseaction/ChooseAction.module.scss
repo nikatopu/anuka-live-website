@@ -1,40 +1,70 @@
-$text-color: #333333;
-$dark-color: #001529;
-$primary-color: #f86830;
-$white: #ffffff;
-$dark-grey: #595959;
-$border-radius: 8px;
-$box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+@use "../../theme" as *;
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
 }
 
 .option {
-  background-color: $white;
-  padding: 2rem;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  @include card;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   text-decoration: none;
-  color: $text-color;
-  border-left: 5px solid transparent;
-  transition: transform 0.2s, box-shadow 0.2s, border-left-color 0.2s;
+  color: $text;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-left-color: $primary-color;
+    transform: translateY(-3px);
+    box-shadow: $shadow-hover;
+    border-color: rgba($primary, 0.45);
+
+    .arrow {
+      color: $primary;
+      transform: translateX(3px);
+    }
   }
 
-  h1 {
-    margin: 0 0 0.5rem;
-    color: $dark-color;
+  &:focus-visible {
+    outline: none;
+    box-shadow: $focus-ring;
+  }
+}
+
+.icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: $primary-soft;
+  color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.text {
+  flex-grow: 1;
+
+  h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.15rem;
+    color: $ink;
   }
 
   p {
     margin: 0;
-    color: $dark-grey;
+    color: $muted;
+    font-size: 0.9rem;
   }
+}
+
+.arrow {
+  color: #9ca3af;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: color 0.15s, transform 0.15s;
 }

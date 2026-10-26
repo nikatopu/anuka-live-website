@@ -1,4 +1,5 @@
 import { useAppContext } from "../../../../lib/AppContext";
+import { useAuth } from "../../../../content/auth/AuthContext";
 import ChooseAction from "../chooseaction/ChooseAction";
 import style from "./Dashboard.module.scss";
 import { FiFileText, FiMusic, FiVideo } from "react-icons/fi"; // <-- Import the FiVideo icon
@@ -27,11 +28,12 @@ const Dashboard = () => {
     soundDesigns,
     loading: isGlobalLoading,
   } = useAppContext();
+  const { username } = useAuth();
 
   return (
     <div className={style.dashboardContainer}>
       <header className={style.dashboardHeader}>
-        <h1>Welcome Back!</h1>
+        <h1>Welcome back, {username}!</h1>
         <p>
           Here's a quick overview of your content. Select an action below to get
           started.

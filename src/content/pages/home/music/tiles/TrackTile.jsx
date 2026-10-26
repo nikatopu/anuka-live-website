@@ -93,8 +93,9 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
 
   useEffect(() => {
     // cleanup on unmount: if this controller is current, release it
+    const controller = controllerRef.current;
     return () => {
-      releaseController(controllerRef.current);
+      releaseController(controller);
     };
   }, [releaseController]);
 
@@ -102,7 +103,7 @@ function TrackTile({ imageTrack, nameTrack, descTrack, linksTrack }) {
     if (currentlyPlaying?.title !== nameTrack) {
       setIsPlaying(false);
     }
-  }, [currentlyPlaying]);
+  }, [currentlyPlaying, nameTrack]);
 
   const linkTypes = [
     { key: "spotify", image: "/svg/spotify.svg" },

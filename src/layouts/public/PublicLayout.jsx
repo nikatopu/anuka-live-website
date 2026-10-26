@@ -26,7 +26,7 @@ const PublicLayout = () => {
       <PageGradients />
       <Header />
       <MusicBox />
-      {/* global hidden YouTube player used by TrackTile via AppContext */}
+      {/* Hidden YouTube player shared by every TrackTile via AppContext */}
       <div
         style={{
           position: "absolute",

@@ -113,7 +113,7 @@ export default function AppContextProvider({ children }) {
 
     // also stop the YouTube player
     stopYouTube();
-  }, []);
+  }, [stopYouTube]);
 
   const releaseController = useCallback((controller) => {
     if (currentPlaybackRef.current === controller) {

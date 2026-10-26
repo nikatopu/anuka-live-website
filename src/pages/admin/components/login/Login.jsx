@@ -1,6 +1,7 @@
 // src/pages/admin/Login.jsx
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { FiAlertCircle, FiArrowLeft } from "react-icons/fi";
 import { useAuth } from "../../../../content/auth/AuthContext";
 import style from "./Login.module.scss";
 
@@ -35,10 +36,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={style.verification}>
-      <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <div>
+    <div className={style.loginPage}>
+      <div className={style.card}>
+        <img src="/AnukaIcon.png" alt="" className={style.logo} />
+        <h1>Admin login</h1>
+        <p className={style.subtitle}>Sign in to manage the Anuka Live website.</p>
+
+        <form onSubmit={handleSubmit} className={style.form}>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -46,10 +50,10 @@ const LoginPage = () => {
             autoComplete="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoFocus
             required
           />
-        </div>
-        <div>
+
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -59,12 +63,22 @@ const LoginPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Logging in..." : "Login"}
-        </button>
-      </form>
+
+          {error && (
+            <p className={style.error} role="alert">
+              <FiAlertCircle /> {error}
+            </p>
+          )}
+
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Logging in..." : "Log in"}
+          </button>
+        </form>
+      </div>
+
+      <a href="/" className={style.backLink}>
+        <FiArrowLeft /> Back to the website
+      </a>
     </div>
   );
 };
