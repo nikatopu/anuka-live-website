@@ -1,15 +1,20 @@
 // prisma/seed.js
+// Creates the initial admin account if it doesn't exist yet. To change the
+// password of an existing admin, use `npm run admin:password` instead.
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const saltRounds = 10;
-  const password = process.env.JWT_SECRET; // Use a strong password
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password || password.length < 12) {
+    throw new Error("Set ADMIN_PASSWORD (at least 12 characters) to seed the admin account.");
+  }
 
-  const admin = await prisma.admin.upsert({
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  await prisma.admin.upsert({
     where: { username: "admin" },
     update: {},
     create: {
@@ -17,7 +22,6 @@ async function main() {
       password: hashedPassword,
     },
   });
-
 }
 
 main()

@@ -2,59 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import './MusicSection.scss';
 import { Link } from 'react-router-dom';
 import TrackTile from './tiles/TrackTile';
+import { useAppContext } from '../../../../lib/AppContext';
+import { toTrackProps } from '../../music/music';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Import arrow icons
 
 function MusicSection() {
-    const tracks = [
-        {
-            name: "Ma Tsa De",
-            desc: "Artwork by Tata Zakaraia",
-            links: {
-                spotify: "https://open.spotify.com/album/7wxdEPGJMilP4FSGNAULQo",
-                imusic: "https://music.apple.com/us/album/ma-tsa-de/1736263329",
-                youtube: "https://www.youtube.com/watch?v=97aLuJ6igXw&list=OLAK5uy_laVur7s7RnXmS3HYdDtV0Z3Crvoqad13w",
-                soundcloud: "https://soundcloud.com/akipshidze/sets/ma-tsa-de?si=0e8352d8875c4ddd8378ee7c4fa4f238&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing",
-                bandcamp: "https://akipshidze.bandcamp.com/album/ma-tsa-de",
-            },
-            image: {
-                big: "/img/pages/music/MaTsaDe.png",
-                small: "/img/pages/music//MaTsaDe.png",
-                name: "MaTsaDe",
-            },
-        },
-        {
-            name: "Kreizi Frog",
-            desc: "Photo by Ketewan",
-            links: {
-                spotify: "https://open.spotify.com/track/00XnYZA0zuRpFBIidnRwEP?si=a5f91b1513a243dc",
-                imusic: "https://music.apple.com/us/album/kreizi-frog/1772409315?i=1772409316",
-                youtube: "https://www.youtube.com/watch?v=1VXYGBP6Bog",
-                soundcloud: "https://soundcloud.com/akipshidze/kreizi-frog",
-                bandcamp: "https://akipshidze.bandcamp.com/track/kreizi-frog",
-            },
-            image: {
-                big: "/img/pages/music/KreiziFrog.jpeg",
-                small: "/img/pages/music/KreiziFrog_small.jpg",
-                name: "Kreizi Frog",
-            },
-        },
-        {
-            name: "Mona",
-            desc: "Artwork by Nuzi",
-            links: {
-                spotify: "https://open.spotify.com/track/1LmMhBQk7JtFyXQuee31e2?si=5b169f4b3275449f",
-                imusic: "https://music.apple.com/us/album/mona/1788194299?i=1788194300",
-                youtube: "https://www.youtube.com/watch?v=OXLfIaA95J4",
-                soundcloud: "https://soundcloud.com/akipshidze/mona",
-                bandcamp: "https://akipshidze.bandcamp.com/track/mona",
-            },
-            image: {
-                big: "/img/pages/music/Mona.png",
-                small: "/img/pages/music/Mona_small.png",
-                name: "Mona",
-            },
-        },
-    ];
+    const { songs } = useAppContext();
+    // Songs marked "featured" in the admin panel, or the newest three if none are
+    const featured = songs.filter((song) => song.featured);
+    const tracks = (featured.length ? featured : songs.slice(0, 3)).map(toTrackProps);
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
@@ -70,10 +26,12 @@ function MusicSection() {
     }, []);
 
     const nextSlide = () => {
+        if (!tracks.length) return;
         setCurrentIndex((prevIndex) => (prevIndex + 1) % tracks.length);
     };
 
     const prevSlide = () => {
+        if (!tracks.length) return;
         setCurrentIndex((prevIndex) => (prevIndex - 1 + tracks.length) % tracks.length);
     };
 
@@ -118,22 +76,9 @@ function MusicSection() {
                     </button>
                 )}
                 {isMobile ? (
-                    <TrackTile
-                        nameTrack={tracks[currentIndex].name}
-                        descTrack={tracks[currentIndex].desc}
-                        linksTrack={tracks[currentIndex].links}
-                        imageTrack={tracks[currentIndex].image}
-                    />
+                    tracks.length > 0 && <TrackTile {...tracks[currentIndex % tracks.length]} />
                 ) : (
-                    tracks.map((track, index) => (
-                        <TrackTile
-                            key={index}
-                            nameTrack={track.name}
-                            descTrack={track.desc}
-                            linksTrack={track.links}
-                            imageTrack={track.image}
-                        />
-                    ))
+                    tracks.map((track, index) => <TrackTile key={index} {...track} />)
                 )}
                 {isMobile && (
                     <button className='slider-arrow right' onClick={nextSlide}>

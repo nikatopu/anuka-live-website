@@ -82,11 +82,39 @@ This is the official website for **Anuka Kipshidze**, featuring:
 
 Access the admin panel at `/admin/login` with proper credentials to:
 
-- Manage music releases and metadata
-- Create and edit blog posts/news
-- Upload and organize sound design projects
-- Update streaming platform links
-- Monitor site analytics
+- Create, edit and delete blog posts/news
+- Create, edit and delete songs and their streaming links
+- Upload, edit and delete sound design reels
+- Change the admin password (Account & Password page)
+
+Files are uploaded directly from the browser to Cloudinary using a signature issued by
+`/api/admin/upload-signature`, so large videos never pass through the serverless functions.
+Sessions use an HttpOnly, SameSite=Strict cookie that lasts 12 hours. Failed logins are
+throttled to 5 per IP every 15 minutes.
+
+### Required environment variables
+
+| Variable         | Purpose                                                              |
+| ---------------- | -------------------------------------------------------------------- |
+| `DATABASE_URL`   | PostgreSQL connection string                                         |
+| `JWT_SECRET`     | Random string of at least 32 characters used to sign admin sessions |
+| `CLOUDINARY_URL` | `cloudinary://<api_key>:<api_secret>@<cloud_name>`                   |
+
+Generate a `JWT_SECRET` with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`.
+Changing it logs out every admin session.
+
+### Changing the admin password
+
+- **From the panel:** go to **Account & Password**, enter the current and new password.
+- **From the command line** (also works if you're locked out):
+  ```bash
+  npx vercel env pull .env --environment=production   # or set DATABASE_URL yourself
+  npm run admin:password -- <username>
+  ```
+  Leave the prompt empty to generate a strong random password. Either way, all existing
+  sessions for that admin are signed out.
+
+After changing `prisma/schema.prisma`, apply it to the database with `npx prisma db push`.
 
 ## 🎤 About Anuka Kipshidze
 

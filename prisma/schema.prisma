@@ -33,7 +33,10 @@ model Song {
   linkYouTube   String?
   linkSoundCloud String?
   linkBandCamp  String?
-  
+
+  tags         String   @default("Track") // comma-separated: Album, Track, Collab
+  featured     Boolean  @default(false)   // shown in the music section on the home page
+
   createdAt    DateTime @default(now())
 }
 
@@ -50,9 +53,19 @@ model Blog {
 
 // Admin Model
 model Admin {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  password String // hashed
+  id           Int    @id @default(autoincrement())
+  username     String @unique
+  password     String // hashed
+  tokenVersion Int    @default(0) // bumped on password change to revoke existing sessions
+}
+
+// Failed login attempts, used to throttle password guessing per IP
+model LoginAttempt {
+  id        Int      @id @default(autoincrement())
+  ip        String
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
 }
 
 // The reels

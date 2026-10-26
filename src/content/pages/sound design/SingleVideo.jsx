@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './SingleVideo.scss';
 
-function SingleVideo({ source, isPlaying, onPlay }) {
+// `reel` is a sound design record from /api/get/sound-designs
+function SingleVideo({ reel, isPlaying, onPlay }) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
-  const title = source.slice(4);
-  const titleArray = title.split(/\.|,/);
-  const videoSource = "/videos/" + source + ".webm";
-  const thumbnailSource = "/img/pages/sound design/" + source + ".webp";
+  const titleArray = reel.title.split(/\.|,/).filter((text) => text.trim());
 
   useEffect(() => {
     if (!isPlaying && videoRef.current) {
@@ -17,7 +15,7 @@ function SingleVideo({ source, isPlaying, onPlay }) {
 
   const handlePlay = () => {
     if (videoRef.current && !isPlaying) {
-      onPlay(source);
+      onPlay(reel.id);
     }
   };
 
@@ -34,11 +32,9 @@ function SingleVideo({ source, isPlaying, onPlay }) {
         height="560"
         loop
         onPlay={handlePlay}
-        poster={thumbnailSource}
+        poster={reel.thumbnailUrl}
+        src={reel.videoUrl}
       >
-        <source src={videoSource} type="video/webm" />
-        <source src={videoSource} type="video/mp4" />
-        <source src={videoSource} type="video/mov" />
         Your browser does not support the video tag.
       </video>
       <div className='text-holder'>

@@ -150,6 +150,52 @@ $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 }
 
+.secondaryButton {
+  padding: 0.8rem;
+  background: none;
+  color: $dark-grey;
+  border: 1px solid $medium-grey;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover:not(:disabled) {
+    border-color: $dark-grey;
+    color: $text-color;
+  }
+}
+
+.checkboxRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  color: $text-color;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+  }
+
+  input {
+    accent-color: $primary-color;
+  }
+}
+
+label.checkboxRow {
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: -1rem;
+  font-size: 0.85rem;
+  color: $dark-grey;
+}
+
 .message {
   padding: 1rem;
   border-radius: $border-radius;
@@ -197,6 +243,10 @@ $box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  &.editing {
+    outline: 3px solid $primary-color;
   }
 
   .cardImage {

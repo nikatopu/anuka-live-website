@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useAuth } from "../../../../content/auth/AuthContext";
 import style from "./Blogs.module.scss";
 import { useAppContext } from "../../../../lib/AppContext";
+import { uploadToCloudinary } from "../../lib/uploadToCloudinary";
 import {
   FiUploadCloud,
   FiTrash2,
@@ -19,7 +20,7 @@ const BlogCardSkeleton = () => (
 );
 
 const BlogsAdminPage = () => {
-  const { authHeader } = useAuth();
+  const { adminFetch } = useAuth();
   const { blogs, loading: isGlobalLoading, refetchAllData } = useAppContext();
 
   // Form state
@@ -29,11 +30,13 @@ const BlogsAdminPage = () => {
   const [tags, setTags] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState("");
+  const [editingBlog, setEditingBlog] = useState(null); // the blog being edited, or null when creating
 
   // User feedback state
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" }); // { type: 'success' | 'error', text: '...' }
 
+  const formRef = useRef(null);
   const fileInputRef = useRef(null); // To trigger file input click
 
   const handleFileChange = (e) => {
@@ -48,46 +51,59 @@ const BlogsAdminPage = () => {
     }
   };
 
-  const clearForm = (formElement) => {
+  const clearForm = () => {
     setTitle("");
     setDescription("");
     setRedirectLink("");
     setTags("");
     setImageFile(null);
     setImagePreview("");
-    if (formElement) {
-      formElement.reset();
-    }
+    setEditingBlog(null);
+    formRef.current?.reset();
+  };
+
+  const startEditing = (blog) => {
+    setEditingBlog(blog);
+    setTitle(blog.title);
+    setDescription(blog.description);
+    setRedirectLink(blog.redirectLink);
+    setTags(blog.tags);
+    setImageFile(null);
+    setImagePreview(blog.imageUrl);
+    setMessage({ type: "", text: "" });
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
-    if (isUploading || !imageFile) {
+    if (isUploading) return;
+    if (!editingBlog && !imageFile) {
       setMessage({ type: "error", text: "Please select an image file." });
       return;
     }
 
     setIsUploading(true);
-    setMessage({ type: "info", text: "Uploading blog..." });
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("redirectLink", redirectLink);
-    formData.append("tags", tags);
-    formData.append("image", imageFile);
 
     try {
-      const response = await fetch("/api/admin/blogs", {
-        method: "POST",
-        headers: { ...authHeader() },
-        body: formData,
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Upload failed.");
+      let imageUrl;
+      if (imageFile) {
+        setMessage({ type: "info", text: "Uploading image..." });
+        imageUrl = await uploadToCloudinary(imageFile, "blogImage", adminFetch);
+      }
 
-      setMessage({ type: "success", text: "Blog uploaded successfully!" });
-      clearForm(e.target);
+      setMessage({ type: "info", text: "Saving blog..." });
+      const fields = { title, description, redirectLink, tags, imageUrl };
+      if (editingBlog) {
+        await adminFetch(`/api/admin/blogs/${editingBlog.id}`, { method: "PUT", json: fields });
+      } else {
+        await adminFetch("/api/admin/blogs", { method: "POST", json: fields });
+      }
+
+      setMessage({
+        type: "success",
+        text: editingBlog ? "Blog updated successfully!" : "Blog uploaded successfully!",
+      });
+      clearForm();
 
       await refetchAllData();
     } catch (error) {
@@ -103,12 +119,8 @@ const BlogsAdminPage = () => {
     setMessage({ type: "info", text: `Deleting blog...` });
 
     try {
-      const response = await fetch(`/api/admin/blogs?id=${blogId}`, {
-        method: "DELETE",
-        headers: authHeader(),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message);
+      await adminFetch(`/api/admin/blogs/${blogId}`, { method: "DELETE" });
+      if (editingBlog?.id === blogId) clearForm();
 
       setMessage({ type: "success", text: "Blog deleted successfully." });
 
@@ -127,8 +139,8 @@ const BlogsAdminPage = () => {
 
       <div className={style.mainContent}>
         <div className={style.formContainer}>
-          <form onSubmit={handleBlogSubmit} className={style.uploadForm}>
-            <h3>Upload New Blog</h3>
+          <form ref={formRef} onSubmit={handleBlogSubmit} className={style.uploadForm}>
+            <h3>{editingBlog ? `Edit "${editingBlog.title}"` : "Upload New Blog"}</h3>
 
             <div
               className={style.fileDropZone}
@@ -140,7 +152,6 @@ const BlogsAdminPage = () => {
                 accept="image/*"
                 onChange={handleFileChange}
                 style={{ display: "none" }}
-                required
               />
               {imagePreview ? (
                 <img
@@ -151,22 +162,27 @@ const BlogsAdminPage = () => {
               ) : (
                 <div className={style.dropZonePrompt}>
                   <FiUploadCloud size={50} />
-                  <span>Click or drag image here</span>
+                  <span>Click to choose an image</span>
                 </div>
               )}
             </div>
+            {editingBlog && (
+              <span className={style.hint}>Click the image to replace it.</span>
+            )}
 
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Blog Title"
+              maxLength={200}
               required
             />
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Short Description"
+              maxLength={5000}
               required
             />
             <input
@@ -181,6 +197,7 @@ const BlogsAdminPage = () => {
               value={tags}
               onChange={(e) => setTags(e.target.value)}
               placeholder="Tags (comma, separated)"
+              maxLength={200}
               required
             />
 
@@ -189,8 +206,18 @@ const BlogsAdminPage = () => {
               disabled={isUploading}
               className={style.submitButton}
             >
-              {isUploading ? "Uploading..." : "Publish Blog"}
+              {isUploading ? "Saving..." : editingBlog ? "Save Changes" : "Publish Blog"}
             </button>
+            {editingBlog && (
+              <button
+                type="button"
+                onClick={clearForm}
+                disabled={isUploading}
+                className={style.secondaryButton}
+              >
+                Cancel Editing
+              </button>
+            )}
 
             {/* --- Modern Message/Toast Area --- */}
             {message.text && (
@@ -217,7 +244,10 @@ const BlogsAdminPage = () => {
             ) : (
               // --- Blog Cards ---
               blogs.map((blog) => (
-                <div key={blog.id} className={style.blogCard}>
+                <div
+                  key={blog.id}
+                  className={`${style.blogCard} ${editingBlog?.id === blog.id ? style.editing : ""}`}
+                >
                   <img
                     src={blog.imageUrl}
                     alt={blog.title}
@@ -226,24 +256,26 @@ const BlogsAdminPage = () => {
                   <div className={style.cardContent}>
                     <h4>{blog.title}</h4>
                     <p>{blog.description.substring(0, 80)}...</p>
-                    <div className={style.cardTags}>
-                      {blog.tags.split(",").map((tag) => (
-                        <span key={tag} className={style.tag}>
-                          {tag.trim()}
-                        </span>
-                      ))}
-                    </div>
+                  </div>
+                  <div className={style.cardTags}>
+                    {blog.tags.split(",").map((tag) => (
+                      <span key={tag} className={style.tag}>
+                        {tag.trim()}
+                      </span>
+                    ))}
                   </div>
                   <div className={style.cardActions}>
                     <button
                       className={style.iconButton}
-                      onClick={() => alert("Edit functionality to be added!")}
+                      onClick={() => startEditing(blog)}
+                      title="Edit"
                     >
                       <FiEdit />
                     </button>
                     <button
                       className={`${style.iconButton} ${style.deleteButton}`}
                       onClick={() => handleDelete(blog.id)}
+                      title="Delete"
                     >
                       <FiTrash2 />
                     </button>

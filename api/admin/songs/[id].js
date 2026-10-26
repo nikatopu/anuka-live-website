@@ -1,61 +1,44 @@
 import prisma from "../../../src/lib/prisma.js";
-import withAuth from "../../middleware/withAuth.js";
-import cloudinary from "../../../src/lib/cloudinary.js";
+import withAuth from "../../_lib/withAuth.js";
+import { destroyAsset } from "../../_lib/media.js";
+import { readSongFields, withoutEmptyMedia } from "../../_lib/fields.js";
+import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../_lib/request.js";
 
-// Helper function to extract the public_id from a Cloudinary URL
-const getPublicIdFromUrl = (url) => {
-  if (!url) return null;
-  const parts = url.split("/");
-  const uploadIndex = parts.indexOf("upload");
-  if (uploadIndex === -1) return null;
-  const publicIdWithFolder = parts.slice(uploadIndex + 2).join("/");
-  const publicId = publicIdWithFolder.substring(
-    0,
-    publicIdWithFolder.lastIndexOf(".")
-  );
-  return publicId;
-};
+const IMAGE_FIELDS = ["imageBig", "imageSmall"];
 
 async function handler(req, res) {
-  const { id } = req.query;
-  const songId = parseInt(id, 10);
+  const songId = parseId(req.query.id);
+  if (!songId) return res.status(400).json({ message: "Invalid song ID." });
 
-  if (isNaN(songId)) {
-    return res.status(400).json({ message: "Invalid song ID." });
+  if (req.method !== "PUT" && req.method !== "DELETE") {
+    return methodNotAllowed(req, res, ["PUT", "DELETE"]);
   }
 
-  // DELETE: Delete a specific song
-  if (req.method === "DELETE") {
-    try {
-      // 1. Find the song to get its thumbnail URL
-      const songToDelete = await prisma.song.findUnique({
-        where: { id: songId },
-      });
+  try {
+    const existing = await prisma.song.findUnique({ where: { id: songId } });
+    if (!existing) return res.status(404).json({ message: "Song not found." });
 
-      if (!songToDelete) {
-        return res.status(404).json({ message: "Song not found." });
-      }
+    // PUT: Update a song, optionally replacing either image
+    if (req.method === "PUT") {
+      const fields = readSongFields(readJsonBody(req) || {}, { isUpdate: true });
+      const data = withoutEmptyMedia(fields, IMAGE_FIELDS);
+      const updated = await prisma.song.update({ where: { id: songId }, data });
 
-      // 2. Delete the thumbnail from Cloudinary
-      const publicId = getPublicIdFromUrl(songToDelete.thumbnailUrl);
-      if (publicId) {
-        await cloudinary.uploader.destroy(publicId, { resource_type: "image" });
-      }
-
-      // 3. Delete the song from the database
-      await prisma.song.delete({
-        where: { id: songId },
-      });
-
-      return res.status(200).json({ message: "Song deleted successfully." });
-    } catch (error) {
-      console.error("Delete song error:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      await Promise.all(
+        IMAGE_FIELDS.filter((field) => data[field] && data[field] !== existing[field]).map(
+          (field) => destroyAsset(existing[field], "image")
+        )
+      );
+      return res.status(200).json(updated);
     }
-  }
 
-  res.setHeader("Allow", ["DELETE"]);
-  return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+    // DELETE: Remove the record first, then clean up both images
+    await prisma.song.delete({ where: { id: songId } });
+    await Promise.all(IMAGE_FIELDS.map((field) => destroyAsset(existing[field], "image")));
+    return res.status(200).json({ message: "Song deleted successfully." });
+  } catch (error) {
+    return sendError(res, error, `Song ${req.method} error`);
+  }
 }
 
 export default withAuth(handler);

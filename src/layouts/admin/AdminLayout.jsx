@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../../content/auth/AuthContext";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import style from "./AdminLayout.module.scss";
 
 const AdminLayout = () => {
-  const { token, logout } = useAuth();
+  const { status, username, checkSession, logout } = useAuth();
 
-  if (!token) {
+  // Confirm the session cookie is still valid whenever the admin area is opened
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
+
+  if (status === "unknown") {
+    return <div className={style.adminLoading}>Checking session...</div>;
+  }
+
+  if (status === "anonymous") {
     return <Navigate to="/admin/login" replace />;
   }
 
@@ -28,7 +37,11 @@ const AdminLayout = () => {
           <li>
             <Link to="/admin/sound-design">Manage Sound Design Reels</Link>
           </li>
+          <li>
+            <Link to="/admin/account">Account &amp; Password</Link>
+          </li>
         </ul>
+        <span className={style.signedInAs}>Signed in as {username}</span>
         <button onClick={logout} className={style.logoutButton}>
           Logout
         </button>

@@ -1,76 +1,49 @@
 import prisma from "../../../src/lib/prisma.js";
-import withAuth from "../../middleware/withAuth.js";
-import cloudinary from "../../../src/lib/cloudinary.js";
+import withAuth from "../../_lib/withAuth.js";
+import { destroyAsset } from "../../_lib/media.js";
+import { readSoundDesignFields, withoutEmptyMedia } from "../../_lib/fields.js";
+import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../_lib/request.js";
 
-// Helper to get public_id from Cloudinary URL (works for video and image)
-const getPublicIdFromUrl = (url) => {
-  if (!url) return null;
-  const parts = url.split("/");
-  const uploadIndex = parts.indexOf("upload");
-  if (uploadIndex === -1) return null;
-  const publicIdWithFolder = parts.slice(uploadIndex + 2).join("/");
-  const publicId = publicIdWithFolder.substring(
-    0,
-    publicIdWithFolder.lastIndexOf(".")
-  );
-  return publicId;
-};
+const MEDIA = [
+  { field: "videoUrl", resourceType: "video" },
+  { field: "thumbnailUrl", resourceType: "image" },
+];
 
 async function handler(req, res) {
-  const { id } = req.query;
-  const soundDesignId = parseInt(id, 10);
+  const soundDesignId = parseId(req.query.id);
+  if (!soundDesignId) return res.status(400).json({ message: "Invalid ID." });
 
-  if (isNaN(soundDesignId)) {
-    return res.status(400).json({ message: "Invalid ID." });
+  if (req.method !== "PUT" && req.method !== "DELETE") {
+    return methodNotAllowed(req, res, ["PUT", "DELETE"]);
   }
 
-  if (req.method === "DELETE") {
-    try {
-      // 1. Find the record to get file URLs
-      const reelToDelete = await prisma.soundDesign.findUnique({
-        where: { id: soundDesignId },
-      });
+  try {
+    const existing = await prisma.soundDesign.findUnique({ where: { id: soundDesignId } });
+    if (!existing) return res.status(404).json({ message: "Sound design reel not found." });
 
-      if (!reelToDelete) {
-        return res
-          .status(404)
-          .json({ message: "Sound design reel not found." });
-      }
+    // PUT: Update a reel, optionally replacing the video and/or thumbnail
+    if (req.method === "PUT") {
+      const fields = readSoundDesignFields(readJsonBody(req) || {}, { isUpdate: true });
+      const data = withoutEmptyMedia(fields, MEDIA.map((m) => m.field));
+      const updated = await prisma.soundDesign.update({ where: { id: soundDesignId }, data });
 
-      // 2. Get public_ids for both video and thumbnail
-      const videoPublicId = getPublicIdFromUrl(reelToDelete.videoUrl);
-      const thumbnailPublicId = getPublicIdFromUrl(reelToDelete.thumbnailUrl);
-
-      // 3. Delete both files from Cloudinary concurrently
-      await Promise.all([
-        videoPublicId
-          ? cloudinary.uploader.destroy(videoPublicId, {
-              resource_type: "video",
-            })
-          : Promise.resolve(),
-        thumbnailPublicId
-          ? cloudinary.uploader.destroy(thumbnailPublicId, {
-              resource_type: "image",
-            })
-          : Promise.resolve(),
-      ]);
-
-      // 4. Delete the record from the database
-      await prisma.soundDesign.delete({
-        where: { id: soundDesignId },
-      });
-
-      return res
-        .status(200)
-        .json({ message: "Sound design reel deleted successfully." });
-    } catch (error) {
-      console.error("Delete sound design error:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      await Promise.all(
+        MEDIA.filter(({ field }) => data[field] && data[field] !== existing[field]).map(
+          ({ field, resourceType }) => destroyAsset(existing[field], resourceType)
+        )
+      );
+      return res.status(200).json(updated);
     }
-  }
 
-  res.setHeader("Allow", ["DELETE"]);
-  return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+    // DELETE: Remove the record first, then clean up its files
+    await prisma.soundDesign.delete({ where: { id: soundDesignId } });
+    await Promise.all(
+      MEDIA.map(({ field, resourceType }) => destroyAsset(existing[field], resourceType))
+    );
+    return res.status(200).json({ message: "Sound design reel deleted successfully." });
+  } catch (error) {
+    return sendError(res, error, `Sound design ${req.method} error`);
+  }
 }
 
 export default withAuth(handler);

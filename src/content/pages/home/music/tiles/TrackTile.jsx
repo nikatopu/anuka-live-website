@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useAppContext } from "../../../../../lib/AppContext";
 import "./TrackTile.scss";
-import allMusic from "../../../music/music";
 
 /**
  * Creates a tile for the track

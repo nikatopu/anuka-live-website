@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import allMusic from "../../content/pages/music/music";
+import { filterByTags, toTrackProps } from "../../content/pages/music/music";
 import TrackTile from "../../content/pages/home/music/tiles/TrackTile";
+import { useAppContext } from "../../lib/AppContext";
 import "./Music.scss";
 
 function Music() {
+  const { songs } = useAppContext();
   const [filters, setFilters] = useState([]);
 
   const handleFilter = (text) => {
@@ -35,17 +37,9 @@ function Music() {
       </div>
       <div className="section-musicpage-allmusic">
         <div className="section-musicpage-allmusic-wrapper">
-          {allMusic.filterByTags(filters).map((e, i) => {
-            return (
-              <TrackTile
-                nameTrack={e.title}
-                descTrack={e.desc}
-                linksTrack={e.links}
-                imageTrack={e.image}
-                key={i}
-              />
-            );
-          })}
+          {filterByTags(songs, filters).map((song) => (
+            <TrackTile {...toTrackProps(song)} key={song.id} />
+          ))}
         </div>
       </div>
     </div>
