@@ -1,8 +1,8 @@
-import prisma from "../../../src/lib/prisma.js";
-import withAuth from "../../_lib/withAuth.js";
-import { destroyAsset } from "../../_lib/media.js";
-import { readBlogFields, withoutEmptyMedia } from "../../_lib/fields.js";
-import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../_lib/request.js";
+import prisma from "../../../../src/lib/prisma.js";
+import withAuth from "../../withAuth.js";
+import { destroyAsset } from "../../media.js";
+import { readBlogFields, withoutEmptyMedia } from "../../fields.js";
+import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../request.js";
 
 async function handler(req, res) {
   const blogId = parseId(req.query.id);

@@ -1,8 +1,8 @@
-import prisma from "../../../src/lib/prisma.js";
-import withAuth from "../../_lib/withAuth.js";
-import { destroyAsset } from "../../_lib/media.js";
-import { readSongFields, withoutEmptyMedia } from "../../_lib/fields.js";
-import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../_lib/request.js";
+import prisma from "../../../../src/lib/prisma.js";
+import withAuth from "../../withAuth.js";
+import { destroyAsset } from "../../media.js";
+import { readSongFields, withoutEmptyMedia } from "../../fields.js";
+import { parseId, readJsonBody, methodNotAllowed, sendError } from "../../request.js";
 
 const IMAGE_FIELDS = ["imageBig", "imageSmall"];
 

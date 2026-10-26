@@ -1,6 +1,6 @@
-import withAuth from "../_lib/withAuth.js";
-import { signUpload } from "../_lib/media.js";
-import { readJsonBody, methodNotAllowed } from "../_lib/request.js";
+import withAuth from "../withAuth.js";
+import { signUpload } from "../media.js";
+import { readJsonBody, methodNotAllowed } from "../request.js";
 
 // Issues a short-lived signature that lets the browser upload one file
 // directly to a specific Cloudinary folder

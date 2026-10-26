@@ -1,8 +1,8 @@
-import prisma from "../../src/lib/prisma.js";
+import prisma from "../../../src/lib/prisma.js";
 import bcrypt from "bcrypt";
-import withAuth from "../_lib/withAuth.js";
-import { setSessionCookie } from "../_lib/session.js";
-import { readJsonBody, methodNotAllowed } from "../_lib/request.js";
+import withAuth from "../withAuth.js";
+import { setSessionCookie } from "../session.js";
+import { readJsonBody, methodNotAllowed } from "../request.js";
 
 const MIN_PASSWORD_LENGTH = 12;
 const BCRYPT_ROUNDS = 12;

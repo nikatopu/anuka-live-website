@@ -1,7 +1,7 @@
-import prisma from "../../src/lib/prisma.js";
-import withAuth from "../_lib/withAuth.js";
-import { readSongFields } from "../_lib/fields.js";
-import { readJsonBody, methodNotAllowed, sendError } from "../_lib/request.js";
+import prisma from "../../../src/lib/prisma.js";
+import withAuth from "../withAuth.js";
+import { readSongFields } from "../fields.js";
+import { readJsonBody, methodNotAllowed, sendError } from "../request.js";
 
 // POST: Create a song. Both images are uploaded to Cloudinary by the browser first.
 async function handler(req, res) {

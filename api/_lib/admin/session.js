@@ -1,5 +1,5 @@
-import withAuth from "../_lib/withAuth.js";
-import { methodNotAllowed } from "../_lib/request.js";
+import withAuth from "../withAuth.js";
+import { methodNotAllowed } from "../request.js";
 
 // Lets the admin UI check whether its (HttpOnly) session cookie is still valid
 async function handler(req, res) {

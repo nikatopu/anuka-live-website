@@ -1,7 +1,7 @@
-import prisma from "../../src/lib/prisma.js";
+import prisma from "../../../src/lib/prisma.js";
 import bcrypt from "bcrypt";
-import { setSessionCookie } from "../_lib/session.js";
-import { isJsonRequest, readJsonBody, methodNotAllowed } from "../_lib/request.js";
+import { setSessionCookie } from "../session.js";
+import { isJsonRequest, readJsonBody, methodNotAllowed } from "../request.js";
 
 const MAX_FAILED_ATTEMPTS = 5;
 const ATTEMPT_WINDOW_MS = 15 * 60 * 1000;

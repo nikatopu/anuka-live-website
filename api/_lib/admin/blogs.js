@@ -1,7 +1,7 @@
-import prisma from "../../src/lib/prisma.js";
-import withAuth from "../_lib/withAuth.js";
-import { readBlogFields } from "../_lib/fields.js";
-import { readJsonBody, methodNotAllowed, sendError } from "../_lib/request.js";
+import prisma from "../../../src/lib/prisma.js";
+import withAuth from "../withAuth.js";
+import { readBlogFields } from "../fields.js";
+import { readJsonBody, methodNotAllowed, sendError } from "../request.js";
 
 // POST: Create a blog post. The image is uploaded to Cloudinary by the browser first.
 async function handler(req, res) {
